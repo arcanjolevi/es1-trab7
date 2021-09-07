@@ -12,7 +12,7 @@ import com.main.bo.endereco.Logradouro;
 import com.main.bo.endereco.TipoLogradouro;
 import com.main.bo.endereco.Uf;
 import com.main.bo.pessoa.Empresa;
-import com.main.bo.pessoa.Rg;
+import com.main.json.EmpresaJson;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,19 +24,19 @@ import org.springframework.web.bind.annotation.RestController;
 public class WSEmpresa {
 
     @PostMapping
-    public Empresa hello(@RequestBody Empresa value) {
+    public Empresa hello(@RequestBody EmpresaJson value) {
 
-        Uf uf = new Uf("parase", "PR");
+        Uf uf = new Uf(value.nomeUf, value.siglaUf);
 
-        Cidade cidade = new Cidade("Fiz do asdiaosd", uf);
-        TipoLogradouro tipoL = new TipoLogradouro("Brasil", "Av.");
-        Logradouro logra = new Logradouro("Av. BrASIL", tipoL);
-        Bairro bai = new Bairro("Bairoo do lucas");
-        Endereco end = new Endereco("8787687", logra, bai, cidade);
+        Cidade cidade = new Cidade(value.nomeCidade, uf);
+        TipoLogradouro tipoLogradouro = new TipoLogradouro(value.nomeLogradouro, value.tipoLogradouro);
+        Logradouro logradouro = new Logradouro(value.tipoLogradouro + ". " + value.nomeLogradouro, tipoLogradouro);
+        Bairro bairro = new Bairro(value.nomeBairro);
+        Endereco endereco = new Endereco(value.cep, logradouro, bairro, cidade);
 
-        EnderecoEspecifico endExpe = new EnderecoEspecifico(231, "complemento", end);
+        EnderecoEspecifico endExpe = new EnderecoEspecifico(231, value.complemento, endereco);
 
-        Empresa a = new Empresa("nomeEMpresa", new ArrayList<Telefone>(), new ArrayList<Email>(), endExpe, "486454646");
+        Empresa a = new Empresa(value.nome, new ArrayList<Telefone>(), new ArrayList<Email>(), endExpe, value.cnpj);
 
         // value.vetor.add("valor 1");
 
