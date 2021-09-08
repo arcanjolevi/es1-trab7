@@ -2,9 +2,11 @@ package com.main.json;
 
 import java.util.ArrayList;
 
-public class EmpresaJson {
+public class ContribuinteJson {
     public String id;
     public String nome;
+    public String nomeSocial;
+    public String sobreNome;
     public ArrayList<String> telefones;
     public ArrayList<String> emails;
     public String nroCasa;
@@ -16,5 +18,8 @@ public class EmpresaJson {
     public String nomeCidade;
     public String nomeUf;
     public String siglaUf;
-    public String cnpj;
+    public String rg;
+    public String cpf;
+    public String sexo;
+
 }
