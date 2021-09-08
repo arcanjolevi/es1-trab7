@@ -34,7 +34,9 @@ public class DbConnection {
     public ResultSet execute(String query) throws SQLException {
         PreparedStatement stmQuery = this.connection.prepareStatement(query, new String[] { "idCidades" });
         stmQuery.execute();
-        return stmQuery.getGeneratedKeys();
+        ResultSet res = stmQuery.getGeneratedKeys();
+        res.next();
+        return res;
     }
 
     public void commit() throws SQLException {

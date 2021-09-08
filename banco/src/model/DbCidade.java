@@ -22,7 +22,6 @@ public class DbCidade {
         if (ufId != null) {
             ResultSet res = this.connection.insert("Cidades", new String[] { "nomeCidade", "Ufs_siglaUf" },
                     new String[] { cidade.getNome(), ufId });
-            res.next();
             return res.getInt(1);
         } else {
             throw new Error("Nao foi possivel inserir o UF no banco.");
