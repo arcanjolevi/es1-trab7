@@ -15,13 +15,15 @@ public class DbCidade {
         this.duf = new DbUfs(connection);
     }
 
-    public void insert(Cidade cidade) throws Error, SQLException {
+    public Integer insert(Cidade cidade) throws Error, SQLException {
         Uf uf = new Uf(cidade.getUf().getNome(), cidade.getUf().getSigla());
 
         String ufId = this.duf.insert(uf);
         if (ufId != null) {
-            this.connection.insert("Cidades", new String[] { "nomeCidade", "Ufs_siglaUf" },
+            ResultSet res = this.connection.insert("Cidades", new String[] { "nomeCidade", "Ufs_siglaUf" },
                     new String[] { cidade.getNome(), ufId });
+            res.next();
+            return res.getInt(1);
         } else {
             throw new Error("Nao foi possivel inserir o UF no banco.");
         }

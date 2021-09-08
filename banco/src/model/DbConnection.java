@@ -32,8 +32,9 @@ public class DbConnection {
     }
 
     public ResultSet execute(String query) throws SQLException {
-        Statement stmQuery = this.connection.createStatement();
-        return stmQuery.executeQuery(query);
+        PreparedStatement stmQuery = this.connection.prepareStatement(query, new String[] { "idCidades" });
+        stmQuery.execute();
+        return stmQuery.getGeneratedKeys();
     }
 
     public void commit() throws SQLException {
