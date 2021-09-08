@@ -1,6 +1,7 @@
 package src.model;
 
 import java.sql.*;
+import java.sql.ResultSet;
 
 public class DbConnection {
     private Connection connection = null;
@@ -30,9 +31,9 @@ public class DbConnection {
         this.connection.rollback();
     }
 
-    public void execute(String query) throws SQLException {
+    public ResultSet execute(String query) throws SQLException {
         Statement stmQuery = this.connection.createStatement();
-        stmQuery.execute(query);
+        return stmQuery.executeQuery(query);
     }
 
     public void commit() throws SQLException {
@@ -43,7 +44,7 @@ public class DbConnection {
         return this.connection.createStatement();
     }
 
-    public void insert(String table, String names[], String values[]) {
+    public ResultSet insert(String table, String names[], String values[]) throws Error, SQLException {
         String sql = "INSERT INTO " + table + " (";
         for (int i = 0; i < names.length; i++) {
             sql += names[i];
@@ -57,11 +58,7 @@ public class DbConnection {
                 sql += ",";
         }
         sql += ");";
-        try {
-            this.execute(sql);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        return this.execute(sql);
     }
 
 }
