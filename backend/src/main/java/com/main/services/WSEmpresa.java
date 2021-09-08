@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class WSEmpresa {
 
     @PostMapping
-    public Empresa hello(@RequestBody EmpresaJson value) {
+    public Empresa criarEmpresa(@RequestBody EmpresaJson value) {
 
         Uf uf = new Uf(value.nomeUf, value.siglaUf);
 
@@ -37,9 +37,16 @@ public class WSEmpresa {
         EnderecoEspecifico endExpe = new EnderecoEspecifico(231, value.complemento, endereco);
 
         Empresa a = new Empresa(value.nome, new ArrayList<Telefone>(), new ArrayList<Email>(), endExpe, value.cnpj);
-
+        
         // value.vetor.add("valor 1");
 
         return a;
+    }
+
+
+    public Empresa consultarEmpresa(@RequestBody EmpresaJson value){
+
+        return null;
+
     }
 }
