@@ -57,11 +57,8 @@ public class DbCidade {
     public void remove(Integer idCidade) {
         try {
             this.connection.startTransition();
-            Cidade cidade = this.get(idCidade);
-            Uf uf = this.duf.get(cidade.getUf().getSigla());
             String sql = "DELETE FROM Cidades WHERE idCidades='" + idCidade + "';";
             this.connection.execute(sql);
-            this.duf.remove(uf);
             this.connection.commit();
         } catch (Exception e) {
             try {
