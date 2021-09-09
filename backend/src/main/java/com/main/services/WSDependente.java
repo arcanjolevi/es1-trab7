@@ -35,7 +35,7 @@ public class WSDependente {
         try {
             Dependente dep = this.renderDependente(depeView);
             UsDependente depeController = new UsDependente();
-            Integer id = depeController.Cadastrar(dep);
+            Integer id = depeController.Cadastrar(dep, depeView.cpfContribuinte);
             return ResponseEntity.status(HttpStatus.OK).body(id);
         } catch (Exception e) {
             System.out.println("@post /dependente - Dados invalidos - Erro 400 - DAD REQUEST");
