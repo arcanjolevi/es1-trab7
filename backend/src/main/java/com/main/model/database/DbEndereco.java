@@ -61,7 +61,7 @@ public class DbEndereco {
     }
 
     public Endereco get(Integer id) throws Exception, SQLException {
-        String sql = "SELECT * from Endereco WHERE idEmpresa='" + id + "';";
+        String sql = "SELECT * from Endereco WHERE idEndereco='" + id + "';";
         ResultSet res = this.connection.createStatement().executeQuery(sql);
         if (res.next()) {
             Bairro b = new Bairro(this.dbBairro.get(Integer.parseInt(res.getString("Bairros_idBairro"))));

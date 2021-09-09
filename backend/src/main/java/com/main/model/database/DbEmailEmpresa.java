@@ -12,15 +12,15 @@ public class DbEmailEmpresa {
         this.connection = connection;
     }
 
-    public Integer insert(Email email, Integer idEmpresa) {
+    public void insert(Email email, Integer idEmpresa) {
         try {
             this.connection.startTransition();
             String names[] = new String[] { "Empresas_idEmpresa", "Email_Empresa" };
             String values[] = new String[] { idEmpresa.toString(), email.getEmail() };
-            Integer res = this.connection.insert("Email_Empresa", names, values).getInt(1);
+            this.connection.insert("Email_Empresa", names, values);
             this.connection.commit();
-            return res;
         } catch (Exception e) {
+            e.printStackTrace();
             try {
                 this.connection.rollback();
                 System.out.println("Inserção do email revertida no banco.");
@@ -28,14 +28,13 @@ public class DbEmailEmpresa {
                 System.out.println("Não foi possível reverter as alterações no banco.");
             }
         }
-        return null;
     }
 
     public ArrayList<Email> get(Integer idEmpresa) throws Exception {
         String sql = "SELECT * FROM Email_Empresa WHERE Empresas_idEmpresa='" + idEmpresa + "';";
         ResultSet res = this.connection.createStatement().executeQuery(sql);
         ArrayList<Email> emails = new ArrayList<>();
-        if (res.next()) {
+        while (res.next()) {
             emails.add(new Email(res.getString("Email_Empresa")));
         }
         return emails;
