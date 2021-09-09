@@ -21,6 +21,7 @@ public class PessoaFisica extends Pessoa {
     this.nomeSocial = nomeSocial;
     this.cpf = cpf;
     this.sexo = sexo;
+    this.rg = rg;
   }
 
   public String getSobrenome() {
