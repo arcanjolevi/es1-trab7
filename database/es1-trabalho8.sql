@@ -389,16 +389,16 @@ CREATE TABLE IF NOT EXISTS `IRRF`.`Dependentes` (
   PRIMARY KEY (`idDependentes`),
   UNIQUE INDEX `cpfContribuinte_UNIQUE` (`cpfDependente` ASC) VISIBLE,
   INDEX `fk_Dependentes_Contribuinte1_idx` (`Contribuinte_idContribuinte` ASC) VISIBLE,
-  INDEX `fk_Dependentes_tipoDependente1_idx` (`tipoDependente_idTipoDependente` ASC) VISIBLE,
+  INDEX `fk_Dependentes_TipoDependente1_idx` (`TipoDependente_idTipoDependente` ASC) VISIBLE,
   INDEX `fk_Dependentes_Endereco1_idx` (`Endereco_idEndereco` ASC) VISIBLE,
   CONSTRAINT `fk_Dependentes_Contribuinte1`
     FOREIGN KEY (`Contribuinte_idContribuinte`)
     REFERENCES `IRRF`.`Contribuinte` (`idContribuinte`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Dependentes_tipoDependente1`
-    FOREIGN KEY (`tipoDependente_idTipoDependente`)
-    REFERENCES `IRRF`.`tipoDependente` (`idTipoDependente`)
+  CONSTRAINT `fk_Dependentes_TipoDependente1`
+    FOREIGN KEY (`TipoDependente_idTipoDependente`)
+    REFERENCES `IRRF`.`TiposDependente` (`idTipoDependente`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Dependentes_Endereco1`
