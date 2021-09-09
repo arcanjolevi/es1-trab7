@@ -362,7 +362,7 @@ CREATE TABLE IF NOT EXISTS `IRRF`.`DireitosBens` (
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `IRRF`.`TiposDependente` ;
 
-CREATE TABLE IF NOT EXISTS `IRRF`.`tipoDependente` (
+CREATE TABLE IF NOT EXISTS `IRRF`.`TiposDependente` (
   `idTipoDependente` INT NOT NULL AUTO_INCREMENT,
   `nomeTipoDependente` VARCHAR(16) NOT NULL,
   PRIMARY KEY (`idTipoDependente`));
