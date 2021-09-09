@@ -15,34 +15,53 @@ public class DbCidade {
         this.duf = new DbUfs(connection);
     }
 
-    public Integer insert(Cidade cidade) throws Error, SQLException {
-        Uf uf = new Uf(cidade.getUf().getNome(), cidade.getUf().getSigla());
-
-        String ufId = this.duf.insert(uf);
-        if (ufId != null) {
-            ResultSet res = this.connection.insert("Cidades", new String[] { "nomeCidade", "Ufs_siglaUf" },
-                    new String[] { cidade.getNome(), ufId });
-            return res.getInt(1);
-        } else {
-            throw new Error("Nao foi possivel inserir o UF no banco.");
+    public Integer insert(Cidade cidade) {
+        try {
+            this.connection.startTransition();
+            String idUf = this.duf.insert(cidade.getUf());
+            String names[] = new String[] { "nomeCidade", "Ufs_siglaUf" };
+            String values[] = new String[] { cidade.getNome(), idUf };
+            Integer res = this.connection.insert("Cidades", names, values).getInt(1);
+            this.connection.commit();
+            return res;
+        } catch (Exception e) {
+            try {
+                this.connection.rollback();
+                System.out.println("Inserção da cidade revertida no banco.");
+            } catch (Exception e2) {
+                System.out.println("Não foi possível reverter as alterações no banco.");
+            }
         }
+        return null;
     }
 
     public Cidade get(Integer idCidade) throws Error, SQLException {
-        ResultSet res = this.connection.createStatement()
-                .executeQuery("SELECT * FROM Cidades WHERE idCidades='" + idCidade + "';");
+        String sql = "SELECT * FROM Cidades WHERE idCidades='" + idCidade + "';";
+        ResultSet res = this.connection.createStatement().executeQuery(sql);
         if (res.next()) {
             Uf uf = new Uf(this.duf.get((String) res.getObject("Ufs_siglaUf")));
             Cidade cidade = new Cidade(res.getString("nomeCidade"), uf);
             return cidade;
         }
-        throw new Error("Cidade nao encontrada");
+        throw new Error("Cidade nao encontrada.");
     }
 
-    public void remove(Integer idCidade) throws Error, SQLException {
-        Cidade cidade = this.get(idCidade);
-        Uf uf = this.duf.get(cidade.getUf().getSigla());
-        this.connection.execute("DELETE FROM Cidades WHERE idCidades='" + idCidade + "';");
-        this.duf.remove(uf);
+    public void remove(Integer idCidade) {
+        try {
+            this.connection.startTransition();
+            Cidade cidade = this.get(idCidade);
+            Uf uf = this.duf.get(cidade.getUf().getSigla());
+            String sql = "DELETE FROM Cidades WHERE idCidades='" + idCidade + "';";
+            this.connection.execute(sql);
+            this.duf.remove(uf);
+            this.connection.commit();
+        } catch (Exception e) {
+            try {
+                this.connection.rollback();
+                System.out.println("Remoção da cidade revertida no banco.");
+            } catch (Exception e2) {
+                System.out.println("Não foi possível reverter as alterações no banco.");
+            }
+        }
     }
 }

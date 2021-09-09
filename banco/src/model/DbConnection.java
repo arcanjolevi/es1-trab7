@@ -23,8 +23,8 @@ public class DbConnection {
         }
     }
 
-    public void setAutoCommit(Boolean commit) throws SQLException {
-        this.connection.setAutoCommit(commit);
+    public void startTransition() throws SQLException {
+        this.connection.setAutoCommit(false);
     }
 
     public void rollback() throws SQLException {
