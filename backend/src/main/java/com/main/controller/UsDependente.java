@@ -24,6 +24,7 @@ public class UsDependente {
       // DbEndereco conEndereco = new DbEndereco(connection);
       // Integer resEndereco =
       // conEndereco.insert(contribuinte.getEnderecoResidencial().getEndereco());
+      connection.closeConnection();
       return 1;
     } catch (SQLException sqlErr) {
       sqlErr.printStackTrace();
@@ -31,7 +32,16 @@ public class UsDependente {
     }
   }
 
-  // public ArrayList<Dependente> Consultar() {
-
-  // }
+  public ArrayList<Dependente> Consultar() {
+    try {
+      DbConnection connection = new DbConnection("root", "123");
+      // DbDependente conDependente = new DbDependente(connection);
+      ArrayList<Dependente> resDependente;// = conDependente.get();
+      connection.closeConnection();
+      return resDependente;
+    } catch (SQLException sqlErr) {
+      sqlErr.printStackTrace();
+      throw new Error("Erro ao comunicar com o banco.");
+    }
+  }
 }
