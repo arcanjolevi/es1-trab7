@@ -77,4 +77,21 @@ public class DbFone {
         }
         throw new Exception("Telefone não encontrado.");
     }
+
+    public void remove(Telefone telefone) {
+        try {
+            this.connection.startTransition();
+            Integer idFone = this.getId(telefone);
+            String sql = "DELETE FROM Fones WHERE idFone='" + idFone + "';";
+            this.connection.execute(sql);
+            this.connection.commit();
+        } catch (Exception e) {
+            try {
+                this.connection.rollback();
+                System.out.println("Remoção do telefone revertida no banco.");
+            } catch (Exception e2) {
+                System.out.println("Não foi possível reverter as alterações no banco.");
+            }
+        }
+    }
 }

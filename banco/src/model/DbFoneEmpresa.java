@@ -5,35 +5,35 @@ import java.util.ArrayList;
 
 import src.bo.comunicacao.Telefone;
 
-public class DbFoneContribuinte {
+public class DbFoneEmpresa {
     private DbConnection connection;
     private DbFone dbFone;
 
-    public DbFoneContribuinte(DbConnection connection) {
+    public DbFoneEmpresa(DbConnection connection) {
         this.connection = connection;
         this.dbFone = new DbFone(connection);
     }
 
-    public void insert(Telefone telefone, Integer idContribuinte) {
+    public void insert(Telefone telefone, Integer idEmpresa) {
         try {
             this.connection.startTransition();
             Integer idFone = this.dbFone.getId(telefone);
-            String names[] = new String[] { "Contribuinte_idContribuinte", "Fones_idFone" };
-            String values[] = new String[] { idContribuinte.toString(), idFone.toString() };
-            this.connection.insert("Fone_Contribuinte", names, values).getInt(1);
+            String names[] = new String[] { "Fones_idFone", "Empresas_idEmpresa" };
+            String values[] = new String[] { idFone.toString(), idEmpresa.toString() };
+            this.connection.insert("Fone_Empresa", names, values).getInt(1);
             this.connection.commit();
         } catch (Exception e) {
             try {
                 this.connection.rollback();
-                System.out.println("Inserção do Fone_Contribuinte revertida no banco.");
+                System.out.println("Inserção do Fone_Empresa revertida no banco.");
             } catch (Exception e2) {
                 System.out.println("Não foi possível reverter as alterações no banco.");
             }
         }
     }
 
-    public ArrayList<Telefone> get(Integer idContribuinte) throws Exception {
-        String sql = "SELECT * FROM Fone_Contribuinte WHERE Contribuinte_idContribuinte='" + idContribuinte + "';";
+    public ArrayList<Telefone> get(Integer idEmpresa) throws Exception {
+        String sql = "SELECT * FROM Fone_Contribuinte WHERE Empresas_idEmpresa='" + idEmpresa + "';";
         ResultSet res = this.connection.createStatement().executeQuery(sql);
         ArrayList<Telefone> telefones = new ArrayList<>();
         while (res.next()) {
@@ -53,7 +53,7 @@ public class DbFoneContribuinte {
         } catch (Exception e) {
             try {
                 this.connection.rollback();
-                System.out.println("Remoção do fone_contribuinte revertida no banco.");
+                System.out.println("Remoção do fone_empresa revertida no banco.");
             } catch (Exception e2) {
                 System.out.println("Não foi possível reverter as alterações no banco.");
             }

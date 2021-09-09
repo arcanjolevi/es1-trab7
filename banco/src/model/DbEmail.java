@@ -41,13 +41,40 @@ public class DbEmail {
         return emails;
     }
 
-    public ArrayList<Email> get(Email email) throws Exception {
+    public Email get(Email email) throws Exception {
         String sql = "SELECT * FROM Email_Contribuinte WHERE Email_Contribuinte='" + email.getEmail() + "';";
         ResultSet res = this.connection.createStatement().executeQuery(sql);
-        ArrayList<Email> emails = new ArrayList<>();
         if (res.next()) {
-            emails.add(new Email(res.getString("Email_Contribuinte")));
+            Email em = new Email(res.getString("Email_Contribuinte"));
+            return em;
         }
-        return emails;
+        throw new Exception("Email não encontrado.");
+    }
+
+    public Integer getId(String email, Integer idContribuinte) throws Exception {
+        String sql = "SELECT * FROM Email_Contribuinte WHERE Email_Contribuinte='" + email
+                + "' AND Contribuinte_idContribuinte='" + idContribuinte + "';";
+        ResultSet res = this.connection.createStatement().executeQuery(sql);
+        if (res.next()) {
+            return res.getInt(1);
+        }
+        throw new Exception("Email não encontrado.");
+    }
+
+    public void remove(Email email, Integer idContribuinte) {
+        try {
+            this.connection.startTransition();
+            Integer idEmail = this.getId(email.getEmail(), idContribuinte);
+            String sql = "DELETE FROM Email_Contribuinte WHERE idEmailContribuinte='" + idEmail + "';";
+            this.connection.execute(sql);
+            this.connection.commit();
+        } catch (Exception e) {
+            try {
+                this.connection.rollback();
+                System.out.println("Remoção do telefone revertida no banco.");
+            } catch (Exception e2) {
+                System.out.println("Não foi possível reverter as alterações no banco.");
+            }
+        }
     }
 }
