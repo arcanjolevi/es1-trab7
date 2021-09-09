@@ -364,7 +364,7 @@ DROP TABLE IF EXISTS `IRRF`.`TiposDependente` ;
 
 CREATE TABLE IF NOT EXISTS `IRRF`.`TiposDependente` (
   `idTipoDependente` INT NOT NULL AUTO_INCREMENT,
-  `nomeTipoDependente` VARCHAR(16) NOT NULL,
+  `nomeTipoDependente` VARCHAR(16) NOT NULL UNIQUE,
   PRIMARY KEY (`idTipoDependente`));
 
 
