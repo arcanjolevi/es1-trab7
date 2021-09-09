@@ -1,4 +1,5 @@
 package com.main.services;
+
 import com.main.bo.pessoa.Rendimento;
 import com.main.view.RendimentoView;
 
@@ -14,15 +15,15 @@ public class WSRendimento {
 
     @PostMapping
     public RendimentoView criarRendimento(@RequestBody RendimentoView value) {
-        
-      
+
         return null;
     }
 
     @GetMapping
-    public RendimentoView consultarRendimento(@RequestBody Rendimento value){
+    public RendimentoView consultarRendimento(@RequestBody Rendimento value) {
 
         return null;
 
     }
+
 }
