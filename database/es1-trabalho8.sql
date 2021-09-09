@@ -360,11 +360,11 @@ CREATE TABLE IF NOT EXISTS `IRRF`.`DireitosBens` (
 -- -----------------------------------------------------
 -- Table `IRRF`.`tipoDependente`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `IRRF`.`tipoDependente` ;
+DROP TABLE IF EXISTS `IRRF`.`TiposDependente` ;
 
 CREATE TABLE IF NOT EXISTS `IRRF`.`tipoDependente` (
   `idTipoDependente` INT NOT NULL AUTO_INCREMENT,
-  `nometipoDepenten` VARCHAR(16) NOT NULL,
+  `nomeTipoDependente` VARCHAR(16) NOT NULL,
   PRIMARY KEY (`idTipoDependente`));
 
 
@@ -384,7 +384,7 @@ CREATE TABLE IF NOT EXISTS `IRRF`.`Dependentes` (
   `numeroEnderecoDependente` INT NULL,
   `complementoDependente` VARCHAR(255) NOT NULL,
   `Contribuinte_idContribuinte` INT NOT NULL,
-  `tipoDependente_idTipoDependente` INT NOT NULL,
+  `TipoDependente_idTipoDependente` INT NOT NULL,
   `Endereco_idEndereco` INT NOT NULL,
   PRIMARY KEY (`idDependentes`),
   UNIQUE INDEX `cpfContribuinte_UNIQUE` (`cpfDependente` ASC) VISIBLE,
