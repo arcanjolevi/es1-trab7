@@ -35,7 +35,7 @@ public class DbEmailDependente {
         String sql = "SELECT * FROM Email_Dependente WHERE Dependentes_idDependentes='" + idDependente + "';";
         ResultSet res = this.connection.createStatement().executeQuery(sql);
         ArrayList<Email> emails = new ArrayList<>();
-        if (res.next()) {
+        while (res.next()) {
             emails.add(new Email(res.getString("Email_Dependente")));
         }
         return emails;

@@ -35,7 +35,7 @@ public class DbEmailContribuinte {
         String sql = "SELECT * FROM Email_Contribuinte WHERE Contribuinte_idContribuinte='" + idContribuinte + "';";
         ResultSet res = this.connection.createStatement().executeQuery(sql);
         ArrayList<Email> emails = new ArrayList<>();
-        if (res.next()) {
+        while (res.next()) {
             emails.add(new Email(res.getString("Email_Contribuinte")));
         }
         return emails;
