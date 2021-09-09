@@ -1,6 +1,7 @@
 package com.main.model.database;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.main.bo.comunicacao.Email;
@@ -12,13 +13,15 @@ public class DbEmailEmpresa {
         this.connection = connection;
     }
 
-    public void insert(Email email, Integer idEmpresa) {
+    public void insert(Email email, Integer idEmpresa) throws SQLException {
         try {
             this.connection.startTransition();
             String names[] = new String[] { "Empresas_idEmpresa", "Email_Empresa" };
             String values[] = new String[] { idEmpresa.toString(), email.getEmail() };
             this.connection.insert("Email_Empresa", names, values);
             this.connection.commit();
+        } catch (SQLException e1) {
+            throw e1;
         } catch (Exception e) {
             e.printStackTrace();
             try {
