@@ -3,6 +3,7 @@ package com.main.services;
 import java.util.ArrayList;
 
 import com.main.bo.pessoa.Empresa;
+import com.main.controller.UsEmpresa;
 import com.main.view.EmpresaView;
 import com.main.view.TelefoneView;
 
@@ -30,14 +31,13 @@ import com.main.bo.endereco.Uf;
 public class WSEmpresa {
 
     @PostMapping
-    public ResponseEntity<EmpresaView> criarEmpresa(@RequestBody EmpresaView empresaView) {
+    public ResponseEntity<Integer> criarEmpresa(@RequestBody EmpresaView empresaView) {
 
         try {
-
-            // empresaView.renderEmpresa();
-            System.out.println("aqui");
-
-            return ResponseEntity.status(HttpStatus.OK).body(empresaView);
+            Empresa empresa = this.renderEmpresa(empresaView);
+            UsEmpresa empresaController = new UsEmpresa();
+            Integer idEmpresa = empresaController.Cadastrar(empresa);
+            return ResponseEntity.status(HttpStatus.OK).body(idEmpresa);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("@post /empresa - Dados invalidos - Erro 400 - DAD REQUEST");
@@ -46,9 +46,10 @@ public class WSEmpresa {
     }
 
     @GetMapping
-    public ResponseEntity<EmpresaView> consultarEmpresa(@RequestParam String cnpj) {
-        System.out.println(cnpj);
-        return null;
+    public ResponseEntity<Empresa> consultarEmpresa(@RequestParam String cnpj) {
+        UsEmpresa empresaController = new UsEmpresa();
+        Empresa empresa = empresaController.Consultar(cnpj);
+        return ResponseEntity.status(HttpStatus.OK).body(empresa);
     }
 
     public Empresa renderEmpresa(EmpresaView view) {

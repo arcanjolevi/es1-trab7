@@ -33,8 +33,11 @@ public class DbEmpresa {
 
             Integer idEndereco;
             try {
+
                 idEndereco = this.dbEndereco.getId(empresa.getEnderecoResidencial().getEndereco().getCep());
             } catch (Exception e) {
+                System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                e.printStackTrace();
                 idEndereco = this.dbEndereco.insert(empresa.getEnderecoResidencial().getEndereco());
             }
 
