@@ -11,6 +11,7 @@ public class Main {
             DbFone dB = new DbFone(connection);
             Telefone f = new Telefone("45", "55", "666666");
             dB.insert(f);
+            System.out.println(dB.get(f).get(0).getNumero());
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1,5 +1,8 @@
 package src.model;
 
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
 import src.bo.comunicacao.Telefone;
 
 public class DbFone {
@@ -44,5 +47,26 @@ public class DbFone {
             }
         }
         return null;
+    }
+
+    public ArrayList<Telefone> get(Integer idTelefone) throws Exception {
+        String sql = "SELECT * FROM Fones WHERE idFone='" + idTelefone + "';";
+        ResultSet res = this.connection.createStatement().executeQuery(sql);
+        ArrayList<Telefone> telefones = new ArrayList<>();
+        if (res.next()) {
+            telefones.add(new Telefone(res.getString("DDDs_DDD"), res.getString("DDIs_DDI"), res.getString("numero")));
+        }
+        return telefones;
+    }
+
+    public ArrayList<Telefone> get(Telefone telefone) throws Exception {
+        String sql = "SELECT * FROM Fones WHERE numero='" + telefone.getNumero() + "' AND DDDs_DDD='"
+                + telefone.getDdd() + "' AND DDIs_DDI='" + telefone.getDdi() + "';";
+        ResultSet res = this.connection.createStatement().executeQuery(sql);
+        ArrayList<Telefone> telefones = new ArrayList<>();
+        if (res.next()) {
+            telefones.add(new Telefone(res.getString("DDDs_DDD"), res.getString("DDIs_DDI"), res.getString("numero")));
+        }
+        return telefones;
     }
 }
