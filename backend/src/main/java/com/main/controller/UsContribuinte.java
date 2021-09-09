@@ -6,6 +6,18 @@ import com.main.bo.pessoa.Contribuinte;
 import com.main.model.database.DbConnection;
 
 public class UsContribuinte {
+  private DbConnection connection;
+  // private DbContribuinte conContribuinte;
+
+  public UsContribuinte() {
+    try {
+      this.connection = new DbConnection("root", "123");
+      // this.conContribuinte = new DbContribuinte(this.connection);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
   public int Cadastrar(Contribuinte contribuinte) throws Exception {
     if (contribuinte.getCpf() == null || contribuinte.getNome() == null || contribuinte.getNomeSocial() == null
         || contribuinte.getSobrenome() == null || contribuinte.getSexo() == null || contribuinte.getRg() == null
@@ -18,15 +30,16 @@ public class UsContribuinte {
         || contribuinte.getEmails().isEmpty() || contribuinte.getTelefones().isEmpty()) {
       throw new Error("Falta de dados na estrutura.");
     }
+    return this.conContribuinte.insert(contribuinte);
+  }
+
+  public Contribuinte Consultar(String cpf) throws SQLException, Exception {
     try {
-      DbConnection connection = new DbConnection("root", "123");
-      // DbEndereco conEndereco = new DbEndereco(connection);
-      // Integer resEndereco =
-      // conEndereco.insert(contribuinte.getEnderecoResidencial().getEndereco());
-      return 1;
+      return conContribuinte.get(cpf);
     } catch (SQLException sqlErr) {
-      sqlErr.printStackTrace();
-      throw new Error("Erro ao comunicar com o banco.");
+      throw sqlErr;
+    } catch (Exception Err) {
+      throw Err;
     }
   }
 
