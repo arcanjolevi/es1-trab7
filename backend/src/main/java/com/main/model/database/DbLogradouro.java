@@ -23,8 +23,9 @@ public class DbLogradouro {
             } catch (Exception e) {
                 if (e.getMessage().compareTo("Ja inserido") == 0) {
                     siglaTipoLogradouro = this.dTL.get(logradouro.getTipoLogradouro().getSigla()).getSigla();
+                } else {
+                    throw new Exception("Não foi possível inserir ou buscar o TipoLogradouro no banco.");
                 }
-                throw new Exception("Não foi possível inserir ou buscar o TipoLogradouro no banco.");
             }
             String names[] = new String[] { "nomeLogradouro", "TipoLogradouro_siglaLogradouro" };
             String values[] = new String[] { logradouro.getNome(), siglaTipoLogradouro };

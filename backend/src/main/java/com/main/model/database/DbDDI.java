@@ -20,7 +20,6 @@ public class DbDDI {
             return res;
         } catch (Exception e) {
             try {
-                e.printStackTrace();
                 this.connection.rollback();
                 System.out.println("Inserção do ddi revertido no banco.");
             } catch (Exception e2) {

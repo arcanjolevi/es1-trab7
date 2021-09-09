@@ -20,9 +20,10 @@ public class DbFoneContribuinte {
             Integer idFone = this.dbFone.getId(telefone);
             String names[] = new String[] { "Contribuinte_idContribuinte", "Fones_idFone" };
             String values[] = new String[] { idContribuinte.toString(), idFone.toString() };
-            this.connection.insert("Fone_Contribuinte", names, values).getInt(1);
+            this.connection.insert("Fone_Contribuinte", names, values);
             this.connection.commit();
         } catch (Exception e) {
+            e.printStackTrace();
             try {
                 this.connection.rollback();
                 System.out.println("Inserção do Fone_Contribuinte revertida no banco.");
