@@ -1,7 +1,6 @@
 package src.model;
 
 import java.sql.ResultSet;
-import java.util.ArrayList;
 
 import src.bo.comunicacao.Telefone;
 
