@@ -7,36 +7,58 @@ import com.main.bo.pessoa.Dependente;
 import com.main.model.database.DbConnection;
 
 public class UsDependente {
-  public int Cadastrar(Dependente dependente) throws Exception {
-    if (dependente.getCpf() == null || dependente.getNome() == null || dependente.getNomeSocial() == null
-        || dependente.getSobrenome() == null || dependente.getSexo() == null || dependente.getRg() == null
-        || dependente.getEnderecoResidencial().getNroCasa() == null
-        || dependente.getEnderecoResidencial().getEndereco().getCep() == null
-        || dependente.getEnderecoResidencial().getEndereco().getBairro().getNome() == null
-        || dependente.getEnderecoResidencial().getEndereco().getCidade().getNome() == null
-        || dependente.getEnderecoResidencial().getEndereco().getCidade().getUf().getNome() == null
-        || dependente.getEnderecoResidencial().getEndereco().getLogradouro().getNome() == null
-        || dependente.getTelefones().isEmpty() || dependente.getEmails().isEmpty()) {
-      throw new Error("Falta de dados na estrutura.");
-    }
+  private DbConnection connection;
+  private DbDependente conDependente;
+
+  public UsDependente() {
     try {
-      DbConnection connection = new DbConnection("root", "123");
-      // DbEndereco conEndereco = new DbEndereco(connection);
-      // Integer resEndereco =
-      // conEndereco.insert(contribuinte.getEnderecoResidencial().getEndereco());
-      connection.closeConnection();
-      return 1;
-    } catch (SQLException sqlErr) {
-      sqlErr.printStackTrace();
-      throw new Error("Erro ao comunicar com o banco.");
+      this.connection = new DbConnection("root", "123");
+      this.conDependente = new DbDependente(this.connection);
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
   }
-  /*
-   * public ArrayList<Dependente> Consultar() { try { DbConnection connection =
-   * new DbConnection("root", "123"); // DbDependente conDependente = new
-   * DbDependente(connection); ArrayList<Dependente> resDependente = new ;// =
-   * conDependente.get(); connection.closeConnection(); return resDependente; }
-   * catch (SQLException sqlErr) { sqlErr.printStackTrace(); throw new
-   * Error("Erro ao comunicar com o banco."); } }
-   */
+
+  public int Cadastrar(Dependente dependente) throws Exception {
+    if (dependente.getCpf() == null)
+      throw new Exception("Falta de dados na estrutura, Cpf.");
+    if (dependente.getNome() == null)
+      throw new Exception("Falta de dados na estrutura, Nome.");
+    if (dependente.getNomeSocial() == null)
+      throw new Exception("Falta de dados na estrutura, NomeSocial.");
+    if (dependente.getSobrenome() == null)
+      throw new Exception("Falta de dados na estrutura, Sobrenome.");
+    if (dependente.getSexo() == null)
+      throw new Exception("Falta de dados na estrutura, Sexo.");
+    if (dependente.getRg() == null)
+      throw new Exception("Falta de dados na estrutura, Rg.");
+    if (dependente.getEnderecoResidencial().getNroCasa() == null)
+      throw new Exception("Falta de dados na estrutura, EnderecoResidencial.");
+    if (dependente.getEnderecoResidencial().getEndereco().getCep() == null)
+      throw new Exception("Falta de dados na estrutura, EnderecoResidencial.");
+    if (dependente.getEnderecoResidencial().getEndereco().getBairro().getNome() == null)
+      throw new Exception("Falta de dados na estrutura, EnderecoResidencial.");
+    if (dependente.getEnderecoResidencial().getEndereco().getCidade().getNome() == null)
+      throw new Exception("Falta de dados na estrutura, EnderecoResidencial.");
+    if (dependente.getEnderecoResidencial().getEndereco().getCidade().getUf().getNome() == null)
+      throw new Exception("Falta de dados na estrutura, EnderecoResidencial.");
+    if (dependente.getEnderecoResidencial().getEndereco().getLogradouro().getNome() == null)
+      throw new Exception("Falta de dados na estrutura, EnderecoResidencial.");
+    if (dependente.getEmails().isEmpty())
+      throw new Exception("Falta de dados na estrutura, Emails.");
+    if (dependente.getTelefones().isEmpty())
+      throw new Exception("Falta de dados na estrutura, Telefones.");
+
+    return this.conDependente.insert(dependente);
+  }
+
+  public Dependente Consultar(String cpf) throws SQLException, Exception {
+    try {
+      return conDependente.get(cpf);
+    } catch (SQLException sqlErr) {
+      throw sqlErr;
+    } catch (Exception Err) {
+      throw Err;
+    }
+  }
 }
