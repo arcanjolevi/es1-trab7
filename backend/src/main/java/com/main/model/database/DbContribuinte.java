@@ -109,7 +109,17 @@ public class DbContribuinte {
 
             return contri;
         }
-        throw new Exception("Uf não encontrada.");
+        throw new Exception("Contribuinte não encontrada.");
+    }
+
+    public Integer getId(String cpf) throws Exception {
+        String sql = "SELECT * FROM Contribuinte WHERE cpfContribuinte='" + cpf + "';";
+
+        ResultSet res = this.connection.createStatement().executeQuery(sql);
+        if (res.next()) {
+            return res.getInt(1);
+        }
+        throw new Exception("Contribuinte não encontrada.");
     }
 
 }
