@@ -1,12 +1,10 @@
 package com.main.controller;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import com.main.bo.pessoa.Empresa;
 import com.main.model.database.DbConnection;
 import com.main.model.database.DbEmpresa;
-import com.main.model.database.DbEndereco;
 
 public class UsEmpresa {
   private DbConnection connection;
