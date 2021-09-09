@@ -71,7 +71,7 @@ public class DbEndereco {
             Endereco e = new Endereco(res.getString("cep"), l, b, c);
             return e;
         }
-        throw new Error("Endereco nao encontrado.");
+        throw new Exception("Endereco nao encontrado.");
     }
 
     public Integer getId(String cep) throws Exception, SQLException {
@@ -80,6 +80,6 @@ public class DbEndereco {
         if (res.next()) {
             return res.getInt(1);
         }
-        throw new Error("Endereco nao encontrado.");
+        throw new Exception("Endereco nao encontrado.");
     }
 }

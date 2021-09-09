@@ -31,17 +31,12 @@ public class UsDependente {
       throw new Error("Erro ao comunicar com o banco.");
     }
   }
-
-  public ArrayList<Dependente> Consultar() {
-    try {
-      DbConnection connection = new DbConnection("root", "123");
-      // DbDependente conDependente = new DbDependente(connection);
-      ArrayList<Dependente> resDependente;// = conDependente.get();
-      connection.closeConnection();
-      return resDependente;
-    } catch (SQLException sqlErr) {
-      sqlErr.printStackTrace();
-      throw new Error("Erro ao comunicar com o banco.");
-    }
-  }
+  /*
+   * public ArrayList<Dependente> Consultar() { try { DbConnection connection =
+   * new DbConnection("root", "123"); // DbDependente conDependente = new
+   * DbDependente(connection); ArrayList<Dependente> resDependente = new ;// =
+   * conDependente.get(); connection.closeConnection(); return resDependente; }
+   * catch (SQLException sqlErr) { sqlErr.printStackTrace(); throw new
+   * Error("Erro ao comunicar com o banco."); } }
+   */
 }
