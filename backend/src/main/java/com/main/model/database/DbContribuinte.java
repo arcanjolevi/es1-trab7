@@ -1,7 +1,16 @@
 package com.main.model.database;
 
+import java.sql.ResultSet;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.ArrayList;
+
+import com.main.bo.endereco.Endereco;
+import com.main.bo.bensedireitos.BensEDireitos;
+import com.main.bo.comunicacao.Email;
 import com.main.bo.comunicacao.Telefone;
+import com.main.bo.endereco.EnderecoEspecifico;
 import com.main.bo.pessoa.Contribuinte;
+import com.main.bo.pessoa.Rendimento;
 
 public class DbContribuinte {
     private DbConnection connection;
@@ -13,7 +22,7 @@ public class DbContribuinte {
     public DbContribuinte(DbConnection connection) {
         this.connection = connection;
         this.dbEndereco = new DbEndereco(connection);
-        this.foneContr = new DbFoneContribuinte(connection);
+        this.foneContri = new DbFoneContribuinte(connection);
         this.emailContri = new DbEmailContribuinte(connection);
         this.fone = new DbFone(connection);
     }
@@ -55,13 +64,22 @@ public class DbContribuinte {
                 }
             }
 
-            return res;
+            for (Email e : contribuinte.getEmails()) {
+
+                try {
+                    this.emailContri.getId(e.getEmail(), aux);
+                } catch (Exception exc) {
+                    this.emailContri.insert(e, aux);
+                }
+            }
+
+            return aux;
         } catch (SQLIntegrityConstraintViolationException e1) {
             throw new Exception("Ja inserido");
         } catch (Exception e) {
             try {
                 this.connection.rollback();
-                System.out.println("Inserção de Bairro revertida no banco.");
+                System.out.println("Inserção de Contribuinte revertida no banco.");
             } catch (Exception e2) {
                 System.out.println("Não foi possível reverter as alterações no banco.");
             }
@@ -69,23 +87,28 @@ public class DbContribuinte {
         return null;
     }
 
-    public Bairro get(Integer idBairro) throws Exception {
-        String sql = "SELECT * FROM Bairros WHERE idBairro='" + idBairro + "';";
-        ResultSet res = this.connection.createStatement().executeQuery(sql);
-        if (res.next()) {
-            Bairro bairro = new Bairro(res.getString("nomeBairro"));
-            return bairro;
-        }
-        throw new Exception("Bairro não encontrado.");
-    }
+    public Contribuinte get(String cpf) throws Exception {
+        String sql = "SELECT * FROM Contribuinte WHERE cnpjEmpresa='" + cpf + "';";
 
-    public Integer get(Bairro bairro) throws Exception {
-        String sql = "SELECT * FROM Bairros WHERE nomeBairro='" + bairro.getNome() + "';";
         ResultSet res = this.connection.createStatement().executeQuery(sql);
         if (res.next()) {
-            return res.getInt(1);
+            Endereco end = this.dbEndereco.get(Integer.parseInt(res.getString("Endereco_idEndereco")));
+
+            EnderecoEspecifico enderecoResidencial = new EnderecoEspecifico(
+                    Integer.parseInt(res.getString("numeroEnderecoContribuinte")),
+                    res.getString("complementoContribuinte"), end);
+
+            ArrayList<Telefone> telefones = this.foneContri.get(Integer.parseInt(res.getString("idEmpresa")));
+            ArrayList<Email> emails = this.emailContri.get(Integer.parseInt(res.getString("idEmpresa")));
+            Contribuinte contri = new Contribuinte(res.getString("nomeContribuinte"), telefones, emails,
+                    enderecoResidencial, res.getString("sobronomeContribuinte"),
+                    res.getString("nomeSocialContribuinte"), res.getString("cpfContribuinte"),
+                    res.getString("rgContribuinte"), res.getString("sexoContribuinte").charAt(0),
+                    new ArrayList<BensEDireitos>(), new ArrayList<Rendimento>());
+
+            return contri;
         }
-        throw new Exception("Bairro não encontrado.");
+        throw new Exception("Uf não encontrada.");
     }
 
 }
