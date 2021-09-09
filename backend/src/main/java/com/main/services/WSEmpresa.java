@@ -35,17 +35,21 @@ public class WSEmpresa {
             EmpresaView returnView = this.renderEmpresaView(empresa);
             return ResponseEntity.status(HttpStatus.OK).body(returnView);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("@post /empresa - Dados invalidos - Erro 400 - DAD REQUEST");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
-
     }
 
     @GetMapping
-    public EmpresaView consultarEmpresa(@RequestBody EmpresaView value) {
+    public ResponseEntity<EmpresaView> consultarEmpresa(@RequestBody EmpresaView viewEmpresa) {
 
+        String cnpj = viewEmpresa.getCnpj();
+        if (cnpj != null) {
+            // Chama lucas
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
         return null;
-
     }
 
     public EmpresaView renderEmpresaView(Empresa empresa) {
