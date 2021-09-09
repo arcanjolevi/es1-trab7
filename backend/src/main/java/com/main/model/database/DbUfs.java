@@ -37,7 +37,6 @@ public class DbUfs {
 
     public Uf get(String sigla) throws Exception, SQLException {
         String sql = "SELECT * FROM Ufs WHERE siglaUf='" + sigla + "';";
-
         ResultSet res = this.connection.createStatement().executeQuery(sql);
         if (res.next()) {
             Uf uf = new Uf(res.getString("nomeUf"), res.getString("siglaUf"));
