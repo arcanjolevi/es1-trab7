@@ -1,6 +1,9 @@
 package com.main.services;
 
+import java.sql.SQLException;
+
 import com.main.bo.pessoa.Contribuinte;
+import com.main.model.database.DbConnection;
 import com.main.view.ContribuinteView;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,8 +33,14 @@ public class WSContribuinte {
 
     @GetMapping
     public ResponseEntity<ContribuinteView> consultarContribuinte(@RequestParam String cpf) {
+        try {
+            DbConnection db = new DbConnection("root", "123");
+            System.out.println(cpf);
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
-        System.out.println(cpf);
         return ResponseEntity.status(HttpStatus.OK).body(null);
 
     }

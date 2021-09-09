@@ -1,7 +1,10 @@
 package com.main.model.database;
 
-import com.main.bo.endereco.Uf;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+
+import com.main.bo.endereco.Uf;
 
 public class DbUfs {
     private DbConnection connection;
@@ -10,33 +13,53 @@ public class DbUfs {
         this.connection = connection;
     }
 
-    public void insert(Uf uf) {
-        this.connection.insert("Ufs", new String[] { uf.getSigla(), uf.getNome() });
+    public String insert(Uf uf) throws Exception {
+        try {
+            this.connection.startTransition();
+            String names[] = new String[] { "siglaUf", "nomeUf" };
+            String values[] = new String[] { uf.getSigla(), uf.getNome() };
+            this.connection.insert("Ufs", names, values);
+            Uf aux = this.get(uf.getSigla());
+            this.connection.commit();
+            return aux != null ? aux.getSigla() : null;
+        } catch (SQLIntegrityConstraintViolationException e1) {
+            throw new Exception("Ja inserido");
+        } catch (Exception e) {
+            try {
+                this.connection.rollback();
+                System.out.println("Inserção de Uf revertida no banco.");
+            } catch (Exception e2) {
+                System.out.println("Não foi possível reverter as alterações no banco.");
+            }
+        }
+        return null;
     }
 
-    public Uf get(String sigla) {
-        try {
-            ResultSet res = this.connection.createStatement()
-                    .executeQuery("SELECT siglaUf FROM Ufs WHERE siglaUf=" + sigla + ";");
+    public Uf get(String sigla) throws Exception, SQLException {
+        String sql = "SELECT * FROM Ufs WHERE siglaUf='" + sigla + "';";
+
+        ResultSet res = this.connection.createStatement().executeQuery(sql);
+        if (res.next()) {
             Uf uf = new Uf(res.getString("nomeUf"), res.getString("siglaUf"));
             return uf;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
         }
+        throw new Exception("Uf não encontrada.");
     }
 
     public void remove(Uf uf) {
         try {
+            this.connection.startTransition();
             Uf aux = this.get(uf.getSigla());
-            if (aux != null) {
-                this.connection.execute("DELETE FROM Ufs WHERE siglaUf=" + aux.getSigla() + ";");
-            } else {
-                throw new Error("Uf nao encontrada no banco.");
-            }
+            String sql = "DELETE FROM Ufs WHERE siglaUf='" + aux.getSigla() + "';";
+            this.connection.execute(sql);
+            this.connection.commit();
         } catch (Exception e) {
-            e.printStackTrace();
+            try {
+                this.connection.rollback();
+                System.out.println("Remoção de Uf revertida no banco.");
+            } catch (Exception e2) {
+                System.out.println("Não foi possível reverter as alterações no banco.");
+            }
         }
     }
-
 }

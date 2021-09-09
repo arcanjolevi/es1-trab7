@@ -4,12 +4,12 @@ import java.sql.*;
 
 public class DbConnection {
   private Connection connection = null;
-  private String ip = "localhost";
+  private String ip = "172.17.0.2";
   private String port = "3306";
-  private String dbName = "mydb";
+  private String dbName = "IRRF";
   private String url = "jdbc:mariadb://" + ip + ":" + port + "/" + dbName;
 
-  public DbConnection(String user, String pass) throws SQLException{
+  public DbConnection(String user, String pass) throws SQLException {
     this.connection = DriverManager.getConnection(url, user, pass);
   }
 
@@ -22,17 +22,20 @@ public class DbConnection {
     }
   }
 
-  public void setAutoCommit(Boolean commit) throws SQLException {
-    this.connection.setAutoCommit(commit);
+  public void startTransition() throws SQLException {
+    this.connection.setAutoCommit(false);
   }
 
   public void rollback() throws SQLException {
     this.connection.rollback();
   }
 
-  public void execute(String query) throws SQLException {
-    Statement stmQuery = this.connection.createStatement();
-    stmQuery.execute(query);
+  public ResultSet execute(String query) throws SQLException {
+    PreparedStatement stmQuery = this.connection.prepareStatement(query, new String[] { "idCidades" });
+    stmQuery.execute();
+    ResultSet res = stmQuery.getGeneratedKeys();
+    res.next();
+    return res;
   }
 
   public void commit() throws SQLException {
@@ -43,18 +46,21 @@ public class DbConnection {
     return this.connection.createStatement();
   }
 
-  public void insert(String table, String values[]) {
-    String sql = "INSERT INTO " + table + " VALUES (";
-    for(int i = 0; i < values.length; i++) {
-      sql += values[i];
-      if(i != values.length-1) sql += ",";
+  public ResultSet insert(String table, String names[], String values[]) throws Error, SQLException {
+    String sql = "INSERT INTO " + table + " (";
+    for (int i = 0; i < names.length; i++) {
+      sql += names[i];
+      if (i != names.length - 1)
+        sql += ",";
+    }
+    sql += ") VALUES (";
+    for (int i = 0; i < values.length; i++) {
+      sql += "'" + values[i] + "'";
+      if (i != values.length - 1)
+        sql += ",";
     }
     sql += ");";
-    try {
-      this.execute(sql);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+    return this.execute(sql);
   }
 
 }
