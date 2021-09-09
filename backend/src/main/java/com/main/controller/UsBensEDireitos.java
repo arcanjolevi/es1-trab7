@@ -1,5 +1,5 @@
 package com.main.controller;
 
-public class UsBens {
+public class UsBensEDireitos {
   
 }
