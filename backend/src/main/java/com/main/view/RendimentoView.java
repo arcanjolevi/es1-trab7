@@ -1,10 +1,11 @@
-package com.main.json;
+package com.main.view;
 
-public class RendimentoJson {
+public class RendimentoView {
     public String id;
     public String cpf;
     public String valor;
     public String inss;
     public String irrf;
     public String decimoTerceiro;
+
 }

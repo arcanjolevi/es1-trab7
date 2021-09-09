@@ -1,8 +1,8 @@
-package com.main.json;
+package com.main.view;
 
 import java.util.ArrayList;
 
-public class DependenteJson {
+public class ContribuinteView {
     public String id;
     public String nome;
     public String nomeSocial;
@@ -21,5 +21,5 @@ public class DependenteJson {
     public String rg;
     public String cpf;
     public String sexo;
-    public String tipoDependente;
+
 }

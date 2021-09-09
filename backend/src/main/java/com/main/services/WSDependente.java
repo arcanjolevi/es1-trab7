@@ -1,7 +1,7 @@
 package com.main.services;
 
-import com.main.bo.pessoa.Dependente;
-import com.main.json.DependenteJson;
+import com.main.view.DependenteView;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,12 +12,25 @@ import org.springframework.web.bind.annotation.RestController;
 public class WSDependente {
 
     @PostMapping
-    public Dependente criarAmbiente(@RequestBody DependenteJson value) {
+    public DependenteView criarDependente(@RequestBody DependenteView value) {
         return null;
     }
 
-
-    public Dependente consultarContribuinte(@RequestBody DependenteJson value){
+    @GetMapping
+    public DependenteView consultarDependente(@RequestBody DependenteView value) {
         return null;
     }
+
+    @RequestMapping("/remove")
+    @PostMapping
+    public DependenteView removerDependente(@RequestBody DependenteView value) {
+        return null;
+    }
+
+    @RequestMapping("/tipo")
+    @GetMapping
+    public DependenteView consultarTipoDependente(@RequestBody DependenteView value) {
+        return null;
+    }
+
 }
