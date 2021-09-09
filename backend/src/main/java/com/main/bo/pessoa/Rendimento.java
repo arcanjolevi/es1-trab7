@@ -3,14 +3,14 @@ package com.main.bo.pessoa;
 public class Rendimento {
   private Double valor;
   private Double inss;
-  private Double iffr;
+  private Double irrf;
   private Double decimoTerceiro;
   private Empresa empresa;
 
-  public Rendimento(Double valor, Double inss, Double iffr, Double decimoTerceiro, Empresa empresa) {
+  public Rendimento(Double valor, Double inss, Double irrf, Double decimoTerceiro, Empresa empresa) {
     this.valor = valor;
     this.inss = inss;
-    this.iffr = iffr;
+    this.irrf = irrf;
     this.decimoTerceiro = decimoTerceiro;
     this.empresa = empresa;// Agregação
   }
@@ -31,12 +31,12 @@ public class Rendimento {
     this.inss = inss;
   }
 
-  public Double getIffr() {
-    return iffr;
+  public Double getIrrf() {
+    return this.irrf;
   }
 
-  public void setIffr(Double iffr) {
-    this.iffr = iffr;
+  public void setIrrf(Double irrf) {
+    this.irrf = irrf;
   }
 
   public Double getDecimoTerceiro() {
