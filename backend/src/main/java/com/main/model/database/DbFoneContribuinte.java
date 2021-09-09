@@ -43,6 +43,17 @@ public class DbFoneContribuinte {
         return telefones;
     }
 
+    public Integer getId(Integer idContribuinte, Integer idFone) throws Exception {
+        String sql = "SELECT * FROM Fone_Contribuinte WHERE Contribuinte_idContribuinte='" + idContribuinte
+                + "' AND Fones_idFone = '" + idFone + "';";
+        ResultSet res = this.connection.createStatement().executeQuery(sql);
+
+        if (res.next()) {
+            return res.getInt(1);
+        }
+        throw new Exception("Relacao fone e contribuinte nao encontrada");
+    }
+
     public void remove(Integer idFone, Integer idContribuinte) {
         try {
             this.connection.startTransition();
