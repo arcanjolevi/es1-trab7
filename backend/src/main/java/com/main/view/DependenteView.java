@@ -15,25 +15,25 @@ import com.main.bo.endereco.TipoLogradouro;
 import com.main.bo.endereco.Uf;
 
 public class DependenteView {
-    private String id;
-    private String nome;
-    private String nomeSocial;
-    private String sobreNome;
-    private ArrayList<TelefoneView> telefones;
-    private ArrayList<String> emails;
-    private Integer nroCasa;
-    private String complemento;
-    private String cep;
-    private String nomeLogradouro;
-    private String tipoLogradouro;
-    private String nomeBairro;
-    private String nomeCidade;
-    private String nomeUf;
-    private String siglaUf;
-    private String rg;
-    private String cpf;
-    private Character sexo;
-    private String tipoDependente;
+    public String id;
+    public String nome;
+    public String nomeSocial;
+    public String sobreNome;
+    public ArrayList<TelefoneView> telefones;
+    public ArrayList<String> emails;
+    public Integer nroCasa;
+    public String complemento;
+    public String cep;
+    public String nomeLogradouro;
+    public String tipoLogradouro;
+    public String nomeBairro;
+    public String nomeCidade;
+    public String nomeUf;
+    public String siglaUf;
+    public String rg;
+    public String cpf;
+    public Character sexo;
+    public String tipoDependente;
 
     public void setDependente(Dependente dependente) throws Exception {
 
