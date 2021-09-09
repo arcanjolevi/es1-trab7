@@ -20,15 +20,27 @@ public class UsEmpresa {
   }
 
   public int Cadastrar(Empresa empresa) throws Exception {
-    if (empresa.getCnpj() == null || empresa.getNome() == null || empresa.getEnderecoResidencial().getNroCasa() == null
-        || empresa.getEnderecoResidencial().getEndereco().getCep() == null
-        || empresa.getEnderecoResidencial().getEndereco().getBairro().getNome() == null
-        || empresa.getEnderecoResidencial().getEndereco().getCidade().getNome() == null
-        || empresa.getEnderecoResidencial().getEndereco().getCidade().getUf().getNome() == null
-        || empresa.getEnderecoResidencial().getEndereco().getLogradouro().getNome() == null
-        || empresa.getEmails().isEmpty() || empresa.getTelefones().isEmpty()) {
-      throw new Error("Falta de dados na estrutura.");
-    }
+    if (empresa.getCnpj() == null)
+      throw new Error("Falta de dados na estrutura, Cnpj.");
+    if (empresa.getNome() == null)
+      throw new Error("Falta de dados na estrutura, Nome.");
+    if (empresa.getEnderecoResidencial().getNroCasa() == null)
+      throw new Error("Falta de dados na estrutura, EnderecoResidencial.");
+    if (empresa.getEnderecoResidencial().getEndereco().getCep() == null)
+      throw new Error("Falta de dados na estrutura, EnderecoResidencial.");
+    if (empresa.getEnderecoResidencial().getEndereco().getBairro().getNome() == null)
+      throw new Error("Falta de dados na estrutura, EnderecoResidencial.");
+    if (empresa.getEnderecoResidencial().getEndereco().getCidade().getNome() == null)
+      throw new Error("Falta de dados na estrutura, EnderecoResidencial.");
+    if (empresa.getEnderecoResidencial().getEndereco().getCidade().getUf().getNome() == null)
+      throw new Error("Falta de dados na estrutura, EnderecoResidencial.");
+    if (empresa.getEnderecoResidencial().getEndereco().getLogradouro().getNome() == null)
+      throw new Error("Falta de dados na estrutura, EnderecoResidencial.");
+    if (empresa.getEmails().isEmpty())
+      throw new Error("Falta de dados na estrutura, Emails.");
+    if (empresa.getTelefones().isEmpty())
+      throw new Error("Falta de dados na estrutura, Telefones.");
+
     return this.conEmpresa.insert(empresa);
   }
 
