@@ -1,10 +1,17 @@
 package com.main.services;
 
+import java.util.ArrayList;
+
+import com.main.bo.pessoa.Dependente;
 import com.main.view.DependenteView;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -12,25 +19,35 @@ import org.springframework.web.bind.annotation.RestController;
 public class WSDependente {
 
     @PostMapping
-    public DependenteView criarDependente(@RequestBody DependenteView value) {
-        return null;
+    public ResponseEntity<DependenteView> criarDependente(@RequestBody DependenteView depeView) {
+        try {
+            Dependente contribuinte = depeView.renderDependente();
+            // chama lucas
+            return ResponseEntity.status(HttpStatus.OK).body(depeView);
+        } catch (Exception e) {
+            System.out.println("@post /dependente - Dados invalidos - Erro 400 - DAD REQUEST");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(depeView);
+        }
     }
 
+    @RequestMapping("/consulta/cpf")
     @GetMapping
-    public DependenteView consultarDependente(@RequestBody DependenteView value) {
+    public DependenteView consultarDependente(@RequestParam String cpf) {
+        System.out.println(cpf);
         return null;
     }
 
-    @RequestMapping("/remove")
+    @RequestMapping("/remove/{cpf}")
     @PostMapping
-    public DependenteView removerDependente(@RequestBody DependenteView value) {
+    public DependenteView removerDependente(@RequestParam String cpf) {
+        System.out.println(cpf);
         return null;
     }
 
-    @RequestMapping("/tipo")
+    @RequestMapping("/listar/tipos")
     @GetMapping
-    public DependenteView consultarTipoDependente(@RequestBody DependenteView value) {
-        return null;
+    public ArrayList<String> consultarTiposDependente() {
+        return new ArrayList<String>();
     }
 
 }

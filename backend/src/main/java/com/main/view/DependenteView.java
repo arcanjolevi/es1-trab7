@@ -2,14 +2,26 @@ package com.main.view;
 
 import java.util.ArrayList;
 
+import com.main.bo.comunicacao.Telefone;
+import com.main.bo.comunicacao.Email;
+import com.main.bo.pessoa.Dependente;
+import com.main.bo.pessoa.TipoDependente;
+import com.main.bo.endereco.Bairro;
+import com.main.bo.endereco.Cidade;
+import com.main.bo.endereco.Endereco;
+import com.main.bo.endereco.EnderecoEspecifico;
+import com.main.bo.endereco.Logradouro;
+import com.main.bo.endereco.TipoLogradouro;
+import com.main.bo.endereco.Uf;
+
 public class DependenteView {
     private String id;
     private String nome;
     private String nomeSocial;
     private String sobreNome;
-    private ArrayList<String> telefones;
+    private ArrayList<TelefoneView> telefones;
     private ArrayList<String> emails;
-    private String nroCasa;
+    private Integer nroCasa;
     private String complemento;
     private String cep;
     private String nomeLogradouro;
@@ -20,159 +32,70 @@ public class DependenteView {
     private String siglaUf;
     private String rg;
     private String cpf;
-    private String sexo;
+    private Character sexo;
     private String tipoDependente;
 
-    public String getId() {
-        return id;
+    public void setDependente(Dependente dependente) throws Exception {
+
+        if (this.nome != null && this.nomeSocial != null && this.sobreNome != null && this.telefones != null
+                && this.emails != null && this.nroCasa != null && this.complemento != null && this.cep != null
+                && this.nomeLogradouro != null && this.tipoLogradouro != null && this.nomeBairro != null
+                && this.nomeCidade != null && this.nomeUf != null && this.siglaUf != null && this.rg != null
+                && this.cpf != null && this.tipoDependente != null) {
+            this.nome = dependente.getNome();
+            ArrayList<TelefoneView> telefones = new ArrayList<TelefoneView>();
+
+            ArrayList<Telefone> t = dependente.getTelefones();
+            for (Telefone tel : t) {
+                telefones.add(new TelefoneView(tel.getDdi(), tel.getDdd(), tel.getNumero()));
+            }
+            this.telefones = telefones;
+            ArrayList<String> emails = new ArrayList<String>();
+            ArrayList<Email> e = dependente.getEmails();
+            for (Email email : e) {
+                emails.add(email.getEmail());
+            }
+            this.emails = emails;
+            this.nroCasa = dependente.getEnderecoResidencial().getNroCasa();
+            this.complemento = dependente.getEnderecoResidencial().getComplemento();
+            this.cep = dependente.getEnderecoResidencial().getEndereco().getCep();
+            this.nomeLogradouro = dependente.getEnderecoResidencial().getEndereco().getLogradouro().getNome();
+            this.tipoLogradouro = dependente.getEnderecoResidencial().getEndereco().getLogradouro().getTipoLogradouro()
+                    .getSigla();
+            this.nomeBairro = dependente.getEnderecoResidencial().getEndereco().getBairro().getNome();
+            this.nomeCidade = dependente.getEnderecoResidencial().getEndereco().getCidade().getNome();
+            this.nomeUf = dependente.getEnderecoResidencial().getEndereco().getCidade().getUf().getNome();
+            this.siglaUf = dependente.getEnderecoResidencial().getEndereco().getCidade().getUf().getSigla();
+        }
+
+        throw new Exception("Dados invalidos");
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+    public Dependente renderDependente() {
+        ArrayList<Telefone> tells = new ArrayList<Telefone>();
+        for (TelefoneView t : this.telefones) {
+            tells.add(new Telefone(t.getDdd(), t.getDdi(), t.getNumero()));
+        }
 
-    public String getNome() {
-        return nome;
-    }
+        ArrayList<Email> emailsArray = new ArrayList<Email>();
+        for (String e : this.emails) {
+            emailsArray.add(new Email(e));
+        }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+        TipoLogradouro tipoLogradouro = new TipoLogradouro(this.nomeLogradouro, this.tipoLogradouro);
+        Logradouro logradouro = new Logradouro(this.nomeLogradouro, tipoLogradouro);
 
-    public String getNomeSocial() {
-        return nomeSocial;
-    }
+        Uf uf = new Uf(this.nome, this.siglaUf);
 
-    public void setNomeSocial(String nomeSocial) {
-        this.nomeSocial = nomeSocial;
-    }
+        Cidade cidade = new Cidade(this.nomeCidade, uf);
+        Bairro bairro = new Bairro(this.nomeBairro);
+        Endereco endereco = new Endereco(this.cep, logradouro, bairro, cidade);
+        EnderecoEspecifico enderecoResidencial = new EnderecoEspecifico(this.nroCasa, this.complemento, endereco);
+        TipoDependente tipo = new TipoDependente(this.tipoDependente);
+        Dependente dependente = new Dependente(nome, tells, emailsArray, enderecoResidencial, this.sobreNome,
+                this.nomeSocial, this.cpf, this.rg, this.sexo, tipo);
 
-    public String getSobreNome() {
-        return sobreNome;
-    }
-
-    public void setSobreNome(String sobreNome) {
-        this.sobreNome = sobreNome;
-    }
-
-    public ArrayList<String> getTelefones() {
-        return telefones;
-    }
-
-    public void setTelefones(ArrayList<String> telefones) {
-        this.telefones = telefones;
-    }
-
-    public ArrayList<String> getEmails() {
-        return emails;
-    }
-
-    public void setEmails(ArrayList<String> emails) {
-        this.emails = emails;
-    }
-
-    public String getNroCasa() {
-        return nroCasa;
-    }
-
-    public void setNroCasa(String nroCasa) {
-        this.nroCasa = nroCasa;
-    }
-
-    public String getComplemento() {
-        return complemento;
-    }
-
-    public void setComplemento(String complemento) {
-        this.complemento = complemento;
-    }
-
-    public String getCep() {
-        return cep;
-    }
-
-    public void setCep(String cep) {
-        this.cep = cep;
-    }
-
-    public String getNomeLogradouro() {
-        return nomeLogradouro;
-    }
-
-    public void setNomeLogradouro(String nomeLogradouro) {
-        this.nomeLogradouro = nomeLogradouro;
-    }
-
-    public String getTipoLogradouro() {
-        return tipoLogradouro;
-    }
-
-    public void setTipoLogradouro(String tipoLogradouro) {
-        this.tipoLogradouro = tipoLogradouro;
-    }
-
-    public String getNomeBairro() {
-        return nomeBairro;
-    }
-
-    public void setNomeBairro(String nomeBairro) {
-        this.nomeBairro = nomeBairro;
-    }
-
-    public String getNomeCidade() {
-        return nomeCidade;
-    }
-
-    public void setNomeCidade(String nomeCidade) {
-        this.nomeCidade = nomeCidade;
-    }
-
-    public String getNomeUf() {
-        return nomeUf;
-    }
-
-    public void setNomeUf(String nomeUf) {
-        this.nomeUf = nomeUf;
-    }
-
-    public String getSiglaUf() {
-        return siglaUf;
-    }
-
-    public void setSiglaUf(String siglaUf) {
-        this.siglaUf = siglaUf;
-    }
-
-    public String getRg() {
-        return rg;
-    }
-
-    public void setRg(String rg) {
-        this.rg = rg;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public String getSexo() {
-        return sexo;
-    }
-
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
-    }
-
-    public String getTipoDependente() {
-        return tipoDependente;
-    }
-
-    public void setTipoDependente(String tipoDependente) {
-        this.tipoDependente = tipoDependente;
+        return dependente;
     }
 
 }

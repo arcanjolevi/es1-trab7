@@ -1,59 +1,25 @@
 package com.main.view;
 
+import com.main.bo.pessoa.Rendimento;
+
 public class RendimentoView {
-    private String id;
-    private String cpf;
-    private String valor;
-    private String inss;
-    private String irrf;
-    private String decimoTerceiro;
+    public String id;
+    public String cpf;
+    private Double valor;
+    private Double inss;
+    private Double irrf;
+    private Double decimoTerceiro;
+    private String cnpj;
 
-    public String getId() {
-        return id;
+    public void setRendimento(Rendimento rend) {
+        this.valor = rend.getValor();
+        this.inss = rend.getInss();
+        this.irrf = rend.getIrrf();
+        this.decimoTerceiro = rend.getDecimoTerceiro();
+        this.cnpj = rend.getEmpresa().getCnpj();
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public Rendimento renderRendimento() {
+        return new Rendimento(this.valor, this.inss, this.irrf, this.decimoTerceiro, null);
     }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public String getValor() {
-        return valor;
-    }
-
-    public void setValor(String valor) {
-        this.valor = valor;
-    }
-
-    public String getInss() {
-        return inss;
-    }
-
-    public void setInss(String inss) {
-        this.inss = inss;
-    }
-
-    public String getIrrf() {
-        return irrf;
-    }
-
-    public void setIrrf(String irrf) {
-        this.irrf = irrf;
-    }
-
-    public String getDecimoTerceiro() {
-        return decimoTerceiro;
-    }
-
-    public void setDecimoTerceiro(String decimoTerceiro) {
-        this.decimoTerceiro = decimoTerceiro;
-    }
-
 }

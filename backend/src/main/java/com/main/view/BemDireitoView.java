@@ -1,41 +1,28 @@
 package com.main.view;
 
+import com.main.bo.bensedireitos.BensEDireitos;
+import com.main.bo.bensedireitos.TipoBensEDireitos;
+
 public class BemDireitoView {
     private String nomeBemDireito;
     private String tipoBemDireito;
-    private Integer valorTotal;
+    private Double valorTotal;
     private String cpfContribuinte;
 
-    public String getNomeBemDireito() {
-        return nomeBemDireito;
+    public void setRendimento(BensEDireitos value) {
+        this.nomeBemDireito = value.getTipoBem().getNome();
+        this.tipoBemDireito = value.getTipoBem().getDescricao();
+        this.valorTotal = value.getValor();
     }
 
-    public void setNomeBemDireito(String nomeBemDireito) {
-        this.nomeBemDireito = nomeBemDireito;
-    }
+    public BensEDireitos renderBemDireito() throws Exception {
 
-    public String getTipoBemDireito() {
-        return tipoBemDireito;
-    }
+        if (this.nomeBemDireito != null && this.tipoBemDireito != null && this.valorTotal != null) {
 
-    public void setTipoBemDireito(String tipoBemDireito) {
-        this.tipoBemDireito = tipoBemDireito;
+            BensEDireitos value = new BensEDireitos(this.valorTotal,
+                    new TipoBensEDireitos(this.nomeBemDireito, this.tipoBemDireito));
+            return value;
+        }
+        throw new Exception("Dados invalidos");
     }
-
-    public Integer getValorTotal() {
-        return valorTotal;
-    }
-
-    public void setValorTotal(Integer valorTotal) {
-        this.valorTotal = valorTotal;
-    }
-
-    public String getCpfContribuinte() {
-        return cpfContribuinte;
-    }
-
-    public void setCpfContribuinte(String cpfContribuinte) {
-        this.cpfContribuinte = cpfContribuinte;
-    }
-
 }
