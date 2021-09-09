@@ -60,8 +60,8 @@ public class DbEndereco {
         return null;
     }
 
-    public Endereco get(String cep) throws Exception, SQLException {
-        String sql = "SELECT * from Endereco WHERE cep='" + cep + "';";
+    public Endereco get(Integer id) throws Exception, SQLException {
+        String sql = "SELECT * from Endereco WHERE idEmpresa='" + id + "';";
         ResultSet res = this.connection.createStatement().executeQuery(sql);
         if (res.next()) {
             Bairro b = new Bairro(this.dbBairro.get(Integer.parseInt(res.getString("Bairros_idBairro"))));
@@ -71,6 +71,15 @@ public class DbEndereco {
             Endereco e = new Endereco(res.getString("cep"), l, b, c);
             return e;
         }
-        throw new Error("Cidade nao encontrada.");
+        throw new Error("Endereco nao encontrado.");
+    }
+
+    public Integer getId(String cep) throws Exception, SQLException {
+        String sql = "SELECT * from Endereco WHERE cep='" + cep + "';";
+        ResultSet res = this.connection.createStatement().executeQuery(sql);
+        if (res.next()) {
+            return res.getInt(1);
+        }
+        throw new Error("Endereco nao encontrado.");
     }
 }
