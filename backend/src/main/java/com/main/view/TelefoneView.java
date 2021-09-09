@@ -1,9 +1,9 @@
 package com.main.view;
 
 public class TelefoneView {
-    private String ddi;
-    private String ddd;
-    private String numero;
+    public String ddi;
+    public String ddd;
+    public String numero;
 
     public TelefoneView() {
 
