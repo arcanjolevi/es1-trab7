@@ -13,7 +13,8 @@ public class Main {
             Cidade c = new Cidade("cidade", new Uf("uf", "siglaUf"));
             Bairro b = new Bairro("bairro");
             Endereco e = new Endereco("12345", l, b, c);
-            dB.insert(e);
+            // dB.insert(e);
+            // System.out.println(dB.get("12345").getBairro().getNome());
         } catch (Exception e) {
             e.printStackTrace();
         }

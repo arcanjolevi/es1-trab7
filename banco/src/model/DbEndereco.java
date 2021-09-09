@@ -1,6 +1,12 @@
 package src.model;
 
+import src.bo.endereco.Bairro;
+import src.bo.endereco.Cidade;
 import src.bo.endereco.Endereco;
+import src.bo.endereco.Logradouro;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class DbEndereco {
     private DbConnection connection;
@@ -52,5 +58,19 @@ public class DbEndereco {
             }
         }
         return null;
+    }
+
+    public Endereco get(String cep) throws Exception, SQLException {
+        String sql = "SELECT * from Endereco WHERE cep='" + cep + "';";
+        ResultSet res = this.connection.createStatement().executeQuery(sql);
+        if (res.next()) {
+            Bairro b = new Bairro(this.dbBairro.get(Integer.parseInt(res.getString("Bairros_idBairro"))));
+            Cidade c = new Cidade(this.dbCidade.get(Integer.parseInt(res.getString("Cidades_idCidades"))));
+            Logradouro l = new Logradouro(
+                    this.dbLogradouro.get(Integer.parseInt(res.getString("Logradouros_idLogradouro"))));
+            Endereco e = new Endereco(res.getString("cep"), l, b, c);
+            return e;
+        }
+        throw new Error("Cidade nao encontrada.");
     }
 }
