@@ -34,15 +34,13 @@ public class UsEmpresa {
     return this.conEmpresa.insert(empresa);
   }
 
-  public Empresa Consultar(String cnpj) {
+  public Empresa Consultar(String cnpj) throws SQLException, Exception {
     try {
       return conEmpresa.get(cnpj);
     } catch (SQLException sqlErr) {
-      sqlErr.printStackTrace();
-      throw new Error("Erro ao comunicar com o banco.");
+      throw sqlErr;
     } catch (Exception Err) {
-      Err.printStackTrace();
-      throw new Error("Erro ao comunicar com o banco.");
+      throw Err;
     }
   }
 }
