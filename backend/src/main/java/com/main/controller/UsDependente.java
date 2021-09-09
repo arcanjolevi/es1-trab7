@@ -1,10 +1,10 @@
 package com.main.controller;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import com.main.bo.pessoa.Dependente;
 import com.main.model.database.DbConnection;
+import com.main.model.database.DbDependente;
 
 public class UsDependente {
   private DbConnection connection;
@@ -19,7 +19,7 @@ public class UsDependente {
     }
   }
 
-  public int Cadastrar(Dependente dependente) throws Exception {
+  public int Cadastrar(Dependente dependente, String cpf) throws Exception {
     if (dependente.getCpf() == null)
       throw new Exception("Falta de dados na estrutura, Cpf.");
     if (dependente.getNome() == null)
@@ -49,7 +49,7 @@ public class UsDependente {
     if (dependente.getTelefones().isEmpty())
       throw new Exception("Falta de dados na estrutura, Telefones.");
 
-    return this.conDependente.insert(dependente);
+    return this.conDependente.insert(dependente, cpf);
   }
 
   public Dependente Consultar(String cpf) throws SQLException, Exception {
