@@ -1,6 +1,7 @@
 package com.main.services;
 
 import com.main.bo.endereco.Uf;
+import com.main.controller.UsUf;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,14 +18,13 @@ public class WSUf {
     public ResponseEntity<String> cadastrarUf(@RequestParam String nomeUf, @RequestParam String siglaUf) {
 
         Uf estado = new Uf(nomeUf, siglaUf);
+        UsUf ufController = new UsUf();
+        boolean sucess = ufController.cadastrar(estado);
 
-        try {
-
-        } catch (Exception e) {
-            // TODO: handle exception
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        if (sucess) {
+            return ResponseEntity.status(HttpStatus.OK).body(null);
         }
 
-        return "deu certo";
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
 }
