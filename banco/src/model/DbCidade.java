@@ -21,6 +21,11 @@ public class DbCidade {
             String idUf = null;
             try {
                 idUf = this.duf.insert(cidade.getUf());
+                String names[] = new String[] { "nomeCidade", "Ufs_siglaUf" };
+                String values[] = new String[] { cidade.getNome(), idUf };
+                Integer res = this.connection.insert("Cidades", names, values).getInt(1);
+                this.connection.commit();
+                return res;
             } catch (Exception e) {
                 if (e.getMessage().compareTo("Ja inserido") == 0) {
                     idUf = this.duf.get(cidade.getUf().getSigla()).getSigla();

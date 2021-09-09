@@ -35,7 +35,7 @@ public class DbTipoLogradouro {
         return null;
     }
 
-    public TipoLogradouro get(String sigla) throws SQLException {
+    public TipoLogradouro get(String sigla) throws Exception {
         String sql = "SELECT * FROM TipoLogradouro WHERE siglaLogradouro='" + sigla + "';";
         ResultSet res = this.connection.createStatement().executeQuery(sql);
         if (res.next()) {
@@ -43,7 +43,7 @@ public class DbTipoLogradouro {
                     res.getString("siglaLogradouro"));
             return tipo;
         }
-        throw new Error("TipoLogradouro não encontrado.");
+        throw new Exception("TipoLogradouro não encontrado.");
     }
 
     public void remove(String sigla) {
