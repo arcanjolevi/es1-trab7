@@ -21,22 +21,17 @@ public class DbCidade {
             String idUf = null;
             try {
                 idUf = this.duf.insert(cidade.getUf());
-                String names[] = new String[] { "nomeCidade", "Ufs_siglaUf" };
-                String values[] = new String[] { cidade.getNome(), idUf };
-                Integer res = this.connection.insert("Cidades", names, values).getInt(1);
-                this.connection.commit();
-                return res;
             } catch (Exception e) {
                 if (e.getMessage().compareTo("Ja inserido") == 0) {
                     idUf = this.duf.get(cidade.getUf().getSigla()).getSigla();
-                    String names[] = new String[] { "nomeCidade", "Ufs_siglaUf" };
-                    String values[] = new String[] { cidade.getNome(), idUf };
-                    Integer res = this.connection.insert("Cidades", names, values).getInt(1);
-                    this.connection.commit();
-                    return res;
                 }
                 throw new Exception("Não foi possível inserir ou buscar o UF no banco.");
             }
+            String names[] = new String[] { "nomeCidade", "Ufs_siglaUf" };
+            String values[] = new String[] { cidade.getNome(), idUf };
+            Integer res = this.connection.insert("Cidades", names, values).getInt(1);
+            this.connection.commit();
+            return res;
         } catch (Exception e) {
             try {
                 this.connection.rollback();
@@ -48,7 +43,7 @@ public class DbCidade {
         return null;
     }
 
-    public Cidade get(Integer idCidade) throws Error, SQLException {
+    public Cidade get(Integer idCidade) throws Exception, SQLException {
         String sql = "SELECT * FROM Cidades WHERE idCidades='" + idCidade + "';";
         ResultSet res = this.connection.createStatement().executeQuery(sql);
         if (res.next()) {
@@ -57,6 +52,16 @@ public class DbCidade {
             return cidade;
         }
         throw new Error("Cidade nao encontrada.");
+    }
+
+    public Integer get(Cidade cidade) throws Exception, SQLException {
+        String sql = "SELECT * FROM Cidades WHERE nomeCidade='" + cidade.getNome() + "' AND Ufs_siglaUf='"
+                + cidade.getUf().getSigla() + "';";
+        ResultSet res = this.connection.createStatement().executeQuery(sql);
+        if (res.next()) {
+            return res.getInt(1);
+        }
+        throw new Exception("Cidade nao encontrada.");
     }
 
     public void remove(Integer idCidade) {

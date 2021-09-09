@@ -43,6 +43,15 @@ public class DbBairro {
         throw new Exception("Bairro não encontrado.");
     }
 
+    public Integer get(Bairro bairro) throws Exception {
+        String sql = "SELECT * FROM Bairros WHERE nomeBairro='" + bairro.getNome() + "';";
+        ResultSet res = this.connection.createStatement().executeQuery(sql);
+        if (res.next()) {
+            return res.getInt(1);
+        }
+        throw new Exception("Bairro não encontrado.");
+    }
+
     public void remove(Integer idBairro) {
         try {
             this.connection.startTransition();

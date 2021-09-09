@@ -34,14 +34,14 @@ public class DbUfs {
         return null;
     }
 
-    public Uf get(String sigla) throws Error, SQLException {
+    public Uf get(String sigla) throws Exception, SQLException {
         String sql = "SELECT * FROM Ufs WHERE siglaUf='" + sigla + "';";
         ResultSet res = this.connection.createStatement().executeQuery(sql);
         if (res.next()) {
             Uf uf = new Uf(res.getString("nomeUf"), res.getString("siglaUf"));
             return uf;
         }
-        throw new Error("Uf não encontrada.");
+        throw new Exception("Uf não encontrada.");
     }
 
     public void remove(Uf uf) {

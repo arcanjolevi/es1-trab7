@@ -20,22 +20,17 @@ public class DbLogradouro {
             String siglaTipoLogradouro;
             try {
                 siglaTipoLogradouro = this.dTL.insert(logradouro.getTipoLogradouro());
-                String names[] = new String[] { "nomeLogradouro", "TipoLogradouro_siglaLogradouro" };
-                String values[] = new String[] { logradouro.getNome(), siglaTipoLogradouro };
-                Integer res = this.connection.insert("Logradouros", names, values).getInt(1);
-                this.connection.commit();
-                return res;
             } catch (Exception e) {
                 if (e.getMessage().compareTo("Ja inserido") == 0) {
                     siglaTipoLogradouro = this.dTL.get(logradouro.getTipoLogradouro().getSigla()).getSigla();
-                    String names[] = new String[] { "nomeLogradouro", "TipoLogradouro_siglaLogradouro" };
-                    String values[] = new String[] { logradouro.getNome(), siglaTipoLogradouro };
-                    Integer res = this.connection.insert("Logradouros", names, values).getInt(1);
-                    this.connection.commit();
-                    return res;
                 }
                 throw new Exception("Não foi possível inserir ou buscar o TipoLogradouro no banco.");
             }
+            String names[] = new String[] { "nomeLogradouro", "TipoLogradouro_siglaLogradouro" };
+            String values[] = new String[] { logradouro.getNome(), siglaTipoLogradouro };
+            Integer res = this.connection.insert("Logradouros", names, values).getInt(1);
+            this.connection.commit();
+            return res;
         } catch (Exception e) {
             try {
                 this.connection.rollback();
@@ -55,6 +50,16 @@ public class DbLogradouro {
                     this.dTL.get(res.getString("TipoLogradouro_siglaLogradouro")));
             Logradouro logradouro = new Logradouro(res.getString("nomeLogradouro"), tipoLogradouro);
             return logradouro;
+        }
+        throw new Exception("TipoLogradouro não encontrado.");
+    }
+
+    public Integer get(Logradouro logradouro) throws Exception {
+        String sql = "SELECT * FROM Logradouros WHERE nomeLogradouro='" + logradouro.getNome()
+                + "' AND TipoLogradouro_siglaLogradouro='" + logradouro.getTipoLogradouro().getSigla() + "';";
+        ResultSet res = this.connection.createStatement().executeQuery(sql);
+        if (res.next()) {
+            return res.getInt(1);
         }
         throw new Exception("TipoLogradouro não encontrado.");
     }
