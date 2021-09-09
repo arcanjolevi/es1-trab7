@@ -48,8 +48,15 @@ public class WSEmpresa {
     @GetMapping
     public ResponseEntity<Empresa> consultarEmpresa(@RequestParam String cnpj) {
         UsEmpresa empresaController = new UsEmpresa();
-        Empresa empresa = empresaController.Consultar(cnpj);
-        return ResponseEntity.status(HttpStatus.OK).body(empresa);
+        Empresa empresa;
+        try {
+            empresa = empresaController.Consultar(cnpj);
+            return ResponseEntity.status(HttpStatus.OK).body(empresa);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+
     }
 
     public Empresa renderEmpresa(EmpresaView view) {

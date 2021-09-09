@@ -20,7 +20,7 @@ public class DbFoneEmpresa {
             Integer idFone = this.dbFone.getId(telefone);
             String names[] = new String[] { "Fones_idFone", "Empresas_idEmpresa" };
             String values[] = new String[] { idFone.toString(), idEmpresa.toString() };
-            this.connection.insert("Fone_Empresa", names, values).getInt(1);
+            this.connection.insert("Fone_Empresa", names, values);
             this.connection.commit();
         } catch (Exception e) {
             try {
