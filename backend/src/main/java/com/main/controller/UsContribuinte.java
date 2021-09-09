@@ -20,17 +20,21 @@ public class UsContribuinte {
   }
 
   public int Cadastrar(Contribuinte contribuinte) throws Exception {
-    if (contribuinte.getCpf() == null || contribuinte.getNome() == null || contribuinte.getNomeSocial() == null
-        || contribuinte.getSobrenome() == null || contribuinte.getSexo() == null || contribuinte.getRg() == null
-        || contribuinte.getEnderecoResidencial().getNroCasa() == null
-        || contribuinte.getEnderecoResidencial().getEndereco().getCep() == null
-        || contribuinte.getEnderecoResidencial().getEndereco().getBairro().getNome() == null
-        || contribuinte.getEnderecoResidencial().getEndereco().getCidade().getNome() == null
-        || contribuinte.getEnderecoResidencial().getEndereco().getCidade().getUf().getNome() == null
-        || contribuinte.getEnderecoResidencial().getEndereco().getLogradouro().getNome() == null
-        || contribuinte.getEmails().isEmpty() || contribuinte.getTelefones().isEmpty()) {
-      throw new Exception("Falta de dados na estrutura.");
-    }
+    if (contribuinte.getCpf() == null) throw new Exception("Falta de dados na estrutura, Cpf.");
+    if (contribuinte.getNome() == null) throw new Exception("Falta de dados na estrutura, Nome.");
+    if (contribuinte.getNomeSocial() == null) throw new Exception("Falta de dados na estrutura, NomeSocial.");
+    if (contribuinte.getSobrenome() == null) throw new Exception("Falta de dados na estrutura, Sobrenome.");
+    if (contribuinte.getSexo() == null) throw new Exception("Falta de dados na estrutura, Sexo.");
+    if (contribuinte.getRg() == null) throw new Exception("Falta de dados na estrutura, Rg.");
+    if (contribuinte.getEnderecoResidencial().getNroCasa() == null) throw new Exception("Falta de dados na estrutura, EnderecoResidencial.");
+    if (contribuinte.getEnderecoResidencial().getEndereco().getCep() == null) throw new Exception("Falta de dados na estrutura, EnderecoResidencial.");
+    if (contribuinte.getEnderecoResidencial().getEndereco().getBairro().getNome() == null) throw new Exception("Falta de dados na estrutura, EnderecoResidencial.");
+    if (contribuinte.getEnderecoResidencial().getEndereco().getCidade().getNome() == null) throw new Exception("Falta de dados na estrutura, EnderecoResidencial.");
+    if (contribuinte.getEnderecoResidencial().getEndereco().getCidade().getUf().getNome() == null) throw new Exception("Falta de dados na estrutura, EnderecoResidencial.");
+    if (contribuinte.getEnderecoResidencial().getEndereco().getLogradouro().getNome() == null) throw new Exception("Falta de dados na estrutura, EnderecoResidencial.");
+    if (contribuinte.getEmails().isEmpty() ) throw new Exception("Falta de dados na estrutura, Emails.");
+    if (contribuinte.getTelefones().isEmpty()) throw new Exception("Falta de dados na estrutura, Telefones.");
+    
     return this.conContribuinte.insert(contribuinte);
   }
 
