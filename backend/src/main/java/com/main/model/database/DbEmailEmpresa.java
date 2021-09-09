@@ -23,7 +23,7 @@ public class DbEmailEmpresa {
         } catch (SQLException e1) {
             throw e1;
         } catch (Exception e) {
-            e.printStackTrace();
+
             try {
                 this.connection.rollback();
                 System.out.println("Inserção do email revertida no banco.");

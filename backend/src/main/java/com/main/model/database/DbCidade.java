@@ -24,8 +24,9 @@ public class DbCidade {
             } catch (Exception e) {
                 if (e.getMessage().compareTo("Ja inserido") == 0) {
                     idUf = this.duf.get(cidade.getUf().getSigla()).getSigla();
+                } else {
+                    throw new Exception("Não foi possível inserir ou buscar o UF no banco.");
                 }
-                throw new Exception("Não foi possível inserir ou buscar o UF no banco.");
             }
             String names[] = new String[] { "nomeCidade", "Ufs_siglaUf" };
             String values[] = new String[] { cidade.getNome(), idUf };

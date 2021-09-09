@@ -35,17 +35,16 @@ public class DbContribuinte {
 
                 idEndereco = this.dbEndereco.getId(contribuinte.getEnderecoResidencial().getEndereco().getCep());
             } catch (Exception e) {
-                e.printStackTrace();
                 idEndereco = this.dbEndereco.insert(contribuinte.getEnderecoResidencial().getEndereco());
             }
 
             String names[] = new String[] { "nomeContribuinte", "sobrenomeContribuinte", "nomeSocialContribuinte",
                     "cpfContribuinte", "rgContribuinte", "sexoContribuinte", "numeroEnderecoContribuinte",
-                    "Endereco_idEndereco" };
+                    "Endereco_idEndereco", "complementoContribuinte" };
             String values[] = new String[] { contribuinte.getNome(), contribuinte.getSobrenome(),
                     contribuinte.getNomeSocial(), contribuinte.getCpf(), contribuinte.getRg(),
                     contribuinte.getSexo().toString(), contribuinte.getEnderecoResidencial().getNroCasa().toString(),
-                    idEndereco.toString() };
+                    idEndereco.toString(), contribuinte.getEnderecoResidencial().getComplemento() };
             Integer aux = this.connection.insert("Contribuinte", names, values).getInt(1);
 
             this.connection.commit();
@@ -78,6 +77,7 @@ public class DbContribuinte {
         } catch (SQLIntegrityConstraintViolationException e1) {
             throw new Exception("Ja inserido");
         } catch (Exception e) {
+            e.printStackTrace();
             try {
                 this.connection.rollback();
                 System.out.println("Inserção de Contribuinte revertida no banco.");
@@ -89,7 +89,7 @@ public class DbContribuinte {
     }
 
     public Contribuinte get(String cpf) throws Exception {
-        String sql = "SELECT * FROM Contribuinte WHERE cnpjEmpresa='" + cpf + "';";
+        String sql = "SELECT * FROM Contribuinte WHERE cpfContribuinte='" + cpf + "';";
 
         ResultSet res = this.connection.createStatement().executeQuery(sql);
         if (res.next()) {
@@ -99,10 +99,10 @@ public class DbContribuinte {
                     Integer.parseInt(res.getString("numeroEnderecoContribuinte")),
                     res.getString("complementoContribuinte"), end);
 
-            ArrayList<Telefone> telefones = this.foneContri.get(Integer.parseInt(res.getString("idEmpresa")));
-            ArrayList<Email> emails = this.emailContri.get(Integer.parseInt(res.getString("idEmpresa")));
+            ArrayList<Telefone> telefones = this.foneContri.get(Integer.parseInt(res.getString("idContribuinte")));
+            ArrayList<Email> emails = this.emailContri.get(Integer.parseInt(res.getString("idContribuinte")));
             Contribuinte contri = new Contribuinte(res.getString("nomeContribuinte"), telefones, emails,
-                    enderecoResidencial, res.getString("sobronomeContribuinte"),
+                    enderecoResidencial, res.getString("sobrenomeContribuinte"),
                     res.getString("nomeSocialContribuinte"), res.getString("cpfContribuinte"),
                     res.getString("rgContribuinte"), res.getString("sexoContribuinte").charAt(0),
                     new ArrayList<BensEDireitos>(), new ArrayList<Rendimento>());

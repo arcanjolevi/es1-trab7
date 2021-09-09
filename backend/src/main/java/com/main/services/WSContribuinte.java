@@ -36,7 +36,6 @@ public class WSContribuinte {
 
     @PostMapping
     public ResponseEntity<Integer> criarContribuinte(@RequestBody ContribuinteView view) {
-
         try {
             Contribuinte contri = this.renderContribuinte(view);
             UsContribuinte contriController = new UsContribuinte();
