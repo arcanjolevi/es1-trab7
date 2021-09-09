@@ -1,7 +1,6 @@
 package src.model;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import src.bo.endereco.Logradouro;
 import src.bo.endereco.TipoLogradouro;

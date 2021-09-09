@@ -1,7 +1,6 @@
 package src.model;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 
 import src.bo.endereco.TipoLogradouro;
