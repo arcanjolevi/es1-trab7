@@ -43,8 +43,9 @@ public class DbContribuinte {
                     "cpfContribuinte", "rgContribuinte", "sexoContribuinte", "numeroEnderecoContribuinte",
                     "Endereco_idEndereco" };
             String values[] = new String[] { contribuinte.getNome(), contribuinte.getSobrenome(),
-                    contribuinte.getNomeSocial(), contribuinte.getCpf(), contribuinte.getRg(), contribuinte.getSexo(),
-                    contribuinte.getEnderecoResidencial().getNroCasa().toString(), idEndereco.toString() };
+                    contribuinte.getNomeSocial(), contribuinte.getCpf(), contribuinte.getRg(),
+                    contribuinte.getSexo().toString(), contribuinte.getEnderecoResidencial().getNroCasa().toString(),
+                    idEndereco.toString() };
             Integer aux = this.connection.insert("Contribuinte", names, values).getInt(1);
 
             this.connection.commit();

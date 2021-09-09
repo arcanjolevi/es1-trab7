@@ -4,15 +4,16 @@ import java.sql.SQLException;
 
 import com.main.bo.pessoa.Contribuinte;
 import com.main.model.database.DbConnection;
+import com.main.model.database.DbContribuinte;
 
 public class UsContribuinte {
   private DbConnection connection;
-  // private DbContribuinte conContribuinte;
+  private DbContribuinte conContribuinte;
 
   public UsContribuinte() {
     try {
       this.connection = new DbConnection("root", "123");
-      // this.conContribuinte = new DbContribuinte(this.connection);
+      this.conContribuinte = new DbContribuinte(this.connection);
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -28,7 +29,7 @@ public class UsContribuinte {
         || contribuinte.getEnderecoResidencial().getEndereco().getCidade().getUf().getNome() == null
         || contribuinte.getEnderecoResidencial().getEndereco().getLogradouro().getNome() == null
         || contribuinte.getEmails().isEmpty() || contribuinte.getTelefones().isEmpty()) {
-      throw new Error("Falta de dados na estrutura.");
+      throw new Exception("Falta de dados na estrutura.");
     }
     return this.conContribuinte.insert(contribuinte);
   }
