@@ -3,6 +3,7 @@ package src.model;
 import src.bo.endereco.Uf;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 public class DbUfs {
     private DbConnection connection;
@@ -11,7 +12,7 @@ public class DbUfs {
         this.connection = connection;
     }
 
-    public String insert(Uf uf) {
+    public String insert(Uf uf) throws Exception {
         try {
             this.connection.startTransition();
             String names[] = new String[] { "siglaUf", "nomeUf" };
@@ -20,6 +21,8 @@ public class DbUfs {
             Uf aux = this.get(uf.getSigla());
             this.connection.commit();
             return aux != null ? aux.getSigla() : null;
+        } catch (SQLIntegrityConstraintViolationException e1) {
+            throw new Exception("Ja inserido");
         } catch (Exception e) {
             try {
                 this.connection.rollback();

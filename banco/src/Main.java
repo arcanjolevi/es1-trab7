@@ -10,6 +10,7 @@ public class Main {
             DbConnection connection = new DbConnection("user", "123");
             Uf u = new Uf("Parana", "PR-5");
             Cidade c = new Cidade("Foz do Iguacu", u);
+            TipoLogradouro t = new TipoLogradouro("logradouro", "SGL");
             DbCidade db = new DbCidade(connection);
             Integer id = db.insert(c);
             // System.out.println("Get: " + db.get(id).getNome());

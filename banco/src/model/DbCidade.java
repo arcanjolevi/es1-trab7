@@ -18,12 +18,20 @@ public class DbCidade {
     public Integer insert(Cidade cidade) {
         try {
             this.connection.startTransition();
-            String idUf = this.duf.insert(cidade.getUf());
-            String names[] = new String[] { "nomeCidade", "Ufs_siglaUf" };
-            String values[] = new String[] { cidade.getNome(), idUf };
-            Integer res = this.connection.insert("Cidades", names, values).getInt(1);
-            this.connection.commit();
-            return res;
+            String idUf = null;
+            try {
+                idUf = this.duf.insert(cidade.getUf());
+            } catch (Exception e) {
+                if (e.getMessage().compareTo("Ja inserido") == 0) {
+                    idUf = this.duf.get(cidade.getUf().getSigla()).getSigla();
+                    String names[] = new String[] { "nomeCidade", "Ufs_siglaUf" };
+                    String values[] = new String[] { cidade.getNome(), idUf };
+                    Integer res = this.connection.insert("Cidades", names, values).getInt(1);
+                    this.connection.commit();
+                    return res;
+                }
+                throw new Exception("Não foi possível inserir ou buscar o UF no banco.");
+            }
         } catch (Exception e) {
             try {
                 this.connection.rollback();
