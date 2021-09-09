@@ -375,7 +375,7 @@ DROP TABLE IF EXISTS `IRRF`.`Dependentes` ;
 
 CREATE TABLE IF NOT EXISTS `IRRF`.`Dependentes` (
   `idDependentes` INT NOT NULL AUTO_INCREMENT,
-  `nomeDependentes` VARCHAR(255) NULL,
+  `nomeDependente` VARCHAR(255) NULL,
   `sobrenomeDependente` VARCHAR(255) NULL,
   `nomeSocialDependente` VARCHAR(255) NULL,
   `cpfDependente` VARCHAR(16) NOT NULL,
