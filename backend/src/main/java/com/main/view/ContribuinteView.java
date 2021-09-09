@@ -15,6 +15,8 @@ import com.main.bo.endereco.Uf;
 import com.main.bo.pessoa.Contribuinte;
 import com.main.bo.pessoa.Rendimento;
 
+import org.springframework.web.bind.annotation.RequestParam;
+
 public class ContribuinteView {
     private String id;
     private String nome;

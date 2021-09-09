@@ -12,7 +12,7 @@
 	<artifactId>main</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>main</name>
-	<description>Es1 Spring Boot Project</description>
+	<description>ES1 project - Spring Boot</description>
 	<properties>
 		<java.version>16</java.version>
 	</properties>
@@ -29,15 +29,15 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
+			<groupId>org.mariadb.jdbc</groupId>
+			<artifactId>mariadb-java-client</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-      		<groupId>org.mariadb.jdbc</groupId>
-      		<artifactId>mariadb-java-client</artifactId>
-      		<scope>runtime</scope>
-    	</dependency>
 	</dependencies>
 
 	<build>

@@ -1,5 +1,7 @@
 package com.main.services;
 
+import java.util.ArrayList;
+
 import com.main.bo.pessoa.Dependente;
 import com.main.view.DependenteView;
 
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -27,21 +30,24 @@ public class WSDependente {
         }
     }
 
+    @RequestMapping("/consulta/cpf")
     @GetMapping
-    public DependenteView consultarDependente(@RequestBody DependenteView value) {
+    public DependenteView consultarDependente(@RequestParam String cpf) {
+        System.out.println(cpf);
         return null;
     }
 
-    @RequestMapping("/remove")
+    @RequestMapping("/remove/{cpf}")
     @PostMapping
-    public DependenteView removerDependente(@RequestBody DependenteView value) {
+    public DependenteView removerDependente(@RequestParam String cpf) {
+        System.out.println(cpf);
         return null;
     }
 
-    @RequestMapping("/tipo")
+    @RequestMapping("/listar/tipos")
     @GetMapping
-    public DependenteView consultarTipoDependente(@RequestBody DependenteView value) {
-        return null;
+    public ArrayList<String> consultarTiposDependente() {
+        return new ArrayList<String>();
     }
 
 }

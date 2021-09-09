@@ -14,7 +14,7 @@ public class RendimentoView {
     public void setRendimento(Rendimento rend) {
         this.valor = rend.getValor();
         this.inss = rend.getInss();
-        this.irrf = rend.getIffr();
+        this.irrf = rend.getIrrf();
         this.decimoTerceiro = rend.getDecimoTerceiro();
         this.cnpj = rend.getEmpresa().getCnpj();
     }

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -28,16 +29,11 @@ public class WSContribuinte {
     }
 
     @GetMapping
-    public ResponseEntity<ContribuinteView> consultarContribuinte(@RequestBody ContribuinteView contriView) {
+    public ResponseEntity<ContribuinteView> consultarContribuinte(@RequestParam String cpf) {
 
-        try {
-            Contribuinte contr = contriView.renderContruibuinte();
-            // chama o lucas
-            return ResponseEntity.status(HttpStatus.OK).body(contriView);
-        } catch (Exception e) {
-            System.out.println("@get /contribuinte - Dados invalidos - Erro 400 - DAD REQUEST");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
+        System.out.println(cpf);
+        return ResponseEntity.status(HttpStatus.OK).body(null);
+
     }
 
 }
