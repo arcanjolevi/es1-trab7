@@ -13,7 +13,6 @@ public class UsUf {
         DbConnection connection = new DbConnection("root", "123");
         DbUfs dbUf = new DbUfs(connection);
         dbUf.insert(uf);
-
         return true;
       } catch (SQLException sqlErr) {
         sqlErr.printStackTrace();

@@ -1,6 +1,7 @@
 package com.main.controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.main.bo.pessoa.Empresa;
 import com.main.model.database.DbConnection;
@@ -22,6 +23,19 @@ public class UsEmpresa {
       // Integer resEndereco =
       // conEndereco.insert(contribuinte.getEnderecoResidencial().getEndereco());
       return 1;
+    } catch (SQLException sqlErr) {
+      sqlErr.printStackTrace();
+      throw new Error("Erro ao comunicar com o banco.");
+    }
+  }
+
+  public ArrayList<Empresa> Consultar() {
+    try {
+      DbConnection connection = new DbConnection("root", "123");
+      // DbEmpresa conEmpresa = new DbEmpresa(connection);
+      ArrayList<Empresa> resEmpresa;// = conEmpresa.get();
+      connection.closeConnection();
+      return resEmpresa;
     } catch (SQLException sqlErr) {
       sqlErr.printStackTrace();
       throw new Error("Erro ao comunicar com o banco.");
