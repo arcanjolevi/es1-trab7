@@ -11,8 +11,9 @@ public class Main {
             Uf u = new Uf("Parana", "PR-5");
             Cidade c = new Cidade("Foz do Iguacu", u);
             TipoLogradouro t = new TipoLogradouro("logradouro", "SGL");
-            DbCidade db = new DbCidade(connection);
-            Integer id = db.insert(c);
+            DbTipoLogradouro db = new DbTipoLogradouro(connection);
+            // String id = db.insert(t);
+            db.remove(t.getSigla());
             // System.out.println("Get: " + db.get(id).getNome());
             // db.remove(28);
         } catch (Exception e) {

@@ -2,6 +2,7 @@ package src.model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 import src.bo.endereco.TipoLogradouro;
 
@@ -12,7 +13,7 @@ public class DbTipoLogradouro {
         this.connection = connection;
     }
 
-    public String insert(TipoLogradouro tipoLogradouro) {
+    public String insert(TipoLogradouro tipoLogradouro) throws Exception {
         try {
             this.connection.startTransition();
             String names[] = new String[] { "siglaLogradouro", "nomeTipoLogradouro" };
@@ -21,6 +22,8 @@ public class DbTipoLogradouro {
             TipoLogradouro aux = this.get(tipoLogradouro.getSigla());
             this.connection.commit();
             return aux.getSigla();
+        } catch (SQLIntegrityConstraintViolationException e1) {
+            throw new Exception("Ja inserido");
         } catch (Exception e) {
             try {
                 this.connection.rollback();
@@ -41,5 +44,22 @@ public class DbTipoLogradouro {
             return tipo;
         }
         throw new Error("TipoLogradouro não encontrado.");
+    }
+
+    public void remove(String sigla) {
+        try {
+            this.connection.startTransition();
+            TipoLogradouro aux = this.get(sigla);
+            String sql = "DELETE FROM TipoLogradouro WHERE siglaLogradouro='" + aux.getSigla() + "';";
+            this.connection.execute(sql);
+            this.connection.commit();
+        } catch (Exception e) {
+            try {
+                this.connection.rollback();
+                System.out.println("Remoção de TipoLogradouro revertida no banco.");
+            } catch (Exception e2) {
+                System.out.println("Não foi possível reverter as alterações no banco.");
+            }
+        }
     }
 }
