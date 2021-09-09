@@ -51,7 +51,7 @@ public class DbCidade {
             Cidade cidade = new Cidade(res.getString("nomeCidade"), uf);
             return cidade;
         }
-        throw new Error("Cidade nao encontrada.");
+        throw new Exception("Cidade nao encontrada.");
     }
 
     public Integer get(Cidade cidade) throws Exception, SQLException {
