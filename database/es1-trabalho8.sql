@@ -326,7 +326,7 @@ CREATE TABLE IF NOT EXISTS `IRRF`.`Rendimentos` (
 DROP TABLE IF EXISTS `IRRF`.`TipoDireitoBens` ;
 
 CREATE TABLE IF NOT EXISTS `IRRF`.`TipoDireitoBens` (
-  `idTipoDireitoBem` INT NOT NULL,
+  `idTipoDireitoBem` INT NOT NULL AUTO_INCREMENT,
   `nomeDireitoBem` VARCHAR(255) NULL UNIQUE,
   `descricaoDireitoBem` VARCHAR(255) NULL,
   PRIMARY KEY (`idTipoDireitoBem`));
@@ -338,7 +338,7 @@ CREATE TABLE IF NOT EXISTS `IRRF`.`TipoDireitoBens` (
 DROP TABLE IF EXISTS `IRRF`.`DireitosBens` ;
 
 CREATE TABLE IF NOT EXISTS `IRRF`.`DireitosBens` (
-  `idDireitoBem` INT NOT NULL,
+  `idDireitoBem` INT NOT NULL AUTO_INCREMENT,
   `valorTotalDireitoBem` DOUBLE NULL,
   `TipoDireitoBem_idTipoDireitoBem` INT NOT NULL,
   `Contribuinte_cpfContribuinte` VARCHAR(16) NOT NULL,
