@@ -1,6 +1,7 @@
 package com.main.model.database;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import com.main.bo.bensedireitos.BensEDireitos;
 import com.main.bo.bensedireitos.TipoBensEDireitos;
@@ -54,6 +55,18 @@ public class DbDireitosBens {
             return bed;
         }
         throw new Exception("DireitosBens não encontrado.");
+    }
+
+    public ArrayList<BensEDireitos> get(String cpf) throws Exception {
+        String sql = "SELECT * FROM DireitosBens WHERE Contribuinte_cpfContribuinte='" + cpf + "';";
+        ResultSet res = this.connection.createStatement().executeQuery(sql);
+        ArrayList<BensEDireitos> beds = new ArrayList<BensEDireitos>();
+        while (res.next()) {
+            TipoBensEDireitos t = new TipoBensEDireitos(this.dTD.get(res.getString("TipoDireitoBem_idDireitoBem")));
+            BensEDireitos bed = new BensEDireitos(Double.parseDouble(res.getString("valorTotalDireitoBem")), t);
+            beds.add(bed);
+        }
+        return beds;
     }
 
     public void remove(Integer idBed) {
