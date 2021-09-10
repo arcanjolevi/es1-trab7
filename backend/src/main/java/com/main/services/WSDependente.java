@@ -43,7 +43,7 @@ public class WSDependente {
         }
     }
 
-    @RequestMapping("/consulta/cpf")
+    @RequestMapping("/cpf")
     @GetMapping
     public ResponseEntity<Dependente> consultarDependente(@RequestParam String cpf) {
         UsDependente depeController = new UsDependente();
@@ -65,9 +65,13 @@ public class WSDependente {
         return null;
     }
 
-    @RequestMapping("/listar/tipos")
+    @RequestMapping("/listar/todos/cpf")
     @GetMapping
-    public ArrayList<String> consultarTiposDependente() {
+    public ResponseEntity<ArrayList<Dependente>> consultarTiposDependente(@RequestParam String cpf) {
+
+        UsDependente depeController = new UsDependente();
+        depeController.Consultar(cpf);
+
         return new ArrayList<String>();
     }
 
