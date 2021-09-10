@@ -1,6 +1,7 @@
 package com.main.controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.main.bo.bensedireitos.BensEDireitos;
 import com.main.model.database.DbConnection;
@@ -37,6 +38,16 @@ public class UsBensEDireitos {
   public BensEDireitos Consultar(Integer id) throws SQLException, Exception {
     try {
       return conBensEDireitos.get(id);
+    } catch (SQLException sqlErr) {
+      throw sqlErr;
+    } catch (Exception Err) {
+      throw Err;
+    }
+  }
+
+  public ArrayList<BensEDireitos> Consultar(String cpf) throws SQLException, Exception {
+    try {
+      return conBensEDireitos.get(cpf);
     } catch (SQLException sqlErr) {
       throw sqlErr;
     } catch (Exception Err) {
