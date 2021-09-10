@@ -3,6 +3,7 @@ package com.main.controller;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.main.bo.comunicacao.Telefone;
 import com.main.bo.pessoa.Contribuinte;
 import com.main.bo.pessoa.Rendimento;
 import com.main.model.database.DbConnection;
@@ -60,6 +61,8 @@ public class UsContribuinte {
       ArrayList<Rendimento> newArray = new ArrayList<Rendimento>();
       for (Rendimento r : contribuinte.getRendimentos()) {
         r.getEmpresa().setEnderecoResidencial(null);
+        r.getEmpresa().setEmails(null);
+        r.getEmpresa().setTelefones(null);
         newArray.add(r);
       }
       contribuinte.setRendimentos(newArray);
