@@ -1,6 +1,7 @@
 package com.main.controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.main.bo.pessoa.Dependente;
 import com.main.model.database.DbConnection;
@@ -55,6 +56,16 @@ public class UsDependente {
   public Dependente Consultar(String cpf) throws SQLException, Exception {
     try {
       return conDependente.get(cpf);
+    } catch (SQLException sqlErr) {
+      throw sqlErr;
+    } catch (Exception Err) {
+      throw Err;
+    }
+  }
+
+  public ArrayList<Dependente> ConsultarTudo(String cpf) throws SQLException, Exception {
+    try {
+      return conDependente.getAll(cpf);
     } catch (SQLException sqlErr) {
       throw sqlErr;
     } catch (Exception Err) {
