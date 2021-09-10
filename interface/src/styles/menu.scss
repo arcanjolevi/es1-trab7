@@ -1,0 +1,48 @@
+.app-page {
+  display: flex;
+  align-items: center;
+  padding-top: 20vh;
+  flex-direction: column;
+  margin: auto;
+  height: 100vh;
+  background: rgb(255, 247, 241);
+
+  overflow-y: scroll;
+}
+
+.menu-btn {
+  background: #fff;
+  width: 400px;
+  height: 60px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 10px;
+
+  .menu-btn-text {
+    color: chocolate;
+  }
+}
+
+.menu-btn:hover {
+  opacity: 0.4;
+}
+
+.menu-title {
+  margin-bottom: 10px;
+}
+
+.go-back-btn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  cursor: pointer;
+}
+
+.go-back-btn:hover {
+  opacity: 0.5;
+}
