@@ -16,6 +16,7 @@ public class UsBensEDireitos {
     try {
       this.connection = new DbConnection("root", "123");
       this.conBensEDireitos = new DbDireitosBens(this.connection);
+      this.conContribuinte = new DbContribuinte(connection);
     } catch (SQLException e) {
       e.printStackTrace();
     }
