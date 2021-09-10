@@ -37,7 +37,7 @@ public class DbEndereco {
                 idLogradouro = this.dbLogradouro.insert(endereco.getLogradouro());
             }
             try {
-                idBairro = this.dbBairro.get(endereco.getBairro());
+                idBairro = this.dbBairro.getId(endereco.getBairro());
             } catch (Exception e) {
                 idBairro = this.dbBairro.insert(endereco.getBairro());
             }

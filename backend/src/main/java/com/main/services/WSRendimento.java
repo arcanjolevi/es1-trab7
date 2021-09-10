@@ -27,4 +27,8 @@ public class WSRendimento {
 
     }
 
+    public Rendimento renderRendimento(RendimentoView view) {
+        return new Rendimento(view.valor, view.inss, view.irrf, view.decimoTerceiro, null);
+    }
+
 }

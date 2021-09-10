@@ -8,6 +8,10 @@ import com.main.bo.pessoa.TipoDependente;
 public class DbTipoDependente {
     private DbConnection connection;
 
+    public DbTipoDependente(DbConnection connection) {
+        this.connection = connection;
+    }
+
     public Integer insert(TipoDependente tipoDependente) throws Exception {
         try {
             this.connection.startTransition();
@@ -19,6 +23,7 @@ public class DbTipoDependente {
         } catch (SQLIntegrityConstraintViolationException e1) {
             throw new Exception("Ja inserido");
         } catch (Exception e) {
+            e.printStackTrace();
             try {
                 this.connection.rollback();
                 System.out.println("Inserção de TipoDependente revertida no banco.");

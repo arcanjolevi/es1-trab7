@@ -39,17 +39,19 @@ public class DbBairro {
         if (res.next()) {
             Bairro bairro = new Bairro(res.getString("nomeBairro"));
             return bairro;
+        } else {
+            throw new Exception("Bairro não encontrado.");
         }
-        throw new Exception("Bairro não encontrado.");
     }
 
-    public Integer get(Bairro bairro) throws Exception {
+    public Integer getId(Bairro bairro) throws Exception {
         String sql = "SELECT * FROM Bairros WHERE nomeBairro='" + bairro.getNome() + "';";
         ResultSet res = this.connection.createStatement().executeQuery(sql);
         if (res.next()) {
             return res.getInt(1);
+        } else {
+            throw new Exception("Bairro não encontrado.");
         }
-        throw new Exception("Bairro não encontrado.");
     }
 
     public void remove(Integer idBairro) {

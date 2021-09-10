@@ -18,11 +18,12 @@ public class DbFoneDependente {
         try {
             this.connection.startTransition();
             Integer idFone = this.dbFone.getId(telefone);
-            String names[] = new String[] { "Fones_idFone", "Dependentes_idDependente" };
+            String names[] = new String[] { "Fones_idFone", "Dependentes_idDependentes" };
             String values[] = new String[] { idFone.toString(), idDependente.toString() };
             this.connection.insert("Fone_Dependente", names, values);
             this.connection.commit();
         } catch (Exception e) {
+            e.printStackTrace();
             try {
                 this.connection.rollback();
                 System.out.println("Inserção do Fone_Dependente revertida no banco.");

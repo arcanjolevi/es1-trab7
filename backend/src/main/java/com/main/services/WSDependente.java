@@ -38,7 +38,7 @@ public class WSDependente {
             Integer id = depeController.Cadastrar(dep, depeView.cpfContribuinte);
             return ResponseEntity.status(HttpStatus.OK).body(id);
         } catch (Exception e) {
-            System.out.println("@post /dependente - Dados invalidos - Erro 400 - DAD REQUEST");
+            System.out.println("@post /dependente - Dados invalidos - Erro 400 - BAD REQUEST");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
@@ -52,7 +52,7 @@ public class WSDependente {
             return ResponseEntity.status(HttpStatus.OK).body(dependente);
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("@get /dependente/consulta/cpf - Dados invalidos - Erro 400 - DAD REQUEST");
+            System.out.println("@get /dependente/consulta/cpf - Dados invalidos - Erro 400 - BAD REQUEST");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }

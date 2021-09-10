@@ -27,7 +27,7 @@ public class DbDependente {
         this.foneDependente = new DbFoneDependente(connection);
         this.emailDependente = new DbEmailDependente(connection);
         this.fone = new DbFone(connection);
-        this.tipoDependente = new DbTipoDependente();
+        this.tipoDependente = new DbTipoDependente(connection);
         this.contribuinte = new DbContribuinte(connection);
     }
 
@@ -89,8 +89,10 @@ public class DbDependente {
 
             return aux;
         } catch (SQLIntegrityConstraintViolationException e1) {
+            e1.printStackTrace();
             throw new Exception("Ja inserido");
         } catch (Exception e) {
+
             e.printStackTrace();
             try {
                 this.connection.rollback();
@@ -113,15 +115,15 @@ public class DbDependente {
                     Integer.parseInt(res.getString("numeroEnderecoDependente")), res.getString("complementoDependente"),
                     end);
 
-            ArrayList<Telefone> telefones = this.foneDependente.get(Integer.parseInt(res.getString("idDependente")));
-            ArrayList<Email> emails = this.emailDependente.get(Integer.parseInt(res.getString("idDependente")));
+            ArrayList<Telefone> telefones = this.foneDependente.get(Integer.parseInt(res.getString("idDependentes")));
+            ArrayList<Email> emails = this.emailDependente.get(Integer.parseInt(res.getString("idDependentes")));
 
             TipoDependente tipoDependente = this.tipoDependente
                     .get(Integer.parseInt(res.getString("TipoDependente_idTipoDependente")));
 
             Dependente dependente = new Dependente(res.getString("nomeDependente"), telefones, emails,
                     enderecoResidencial, res.getString("sobrenomeDependente"), res.getString("nomeSocialDependente"),
-                    res.getString("cpfDependente"), res.getString("rfDependente"),
+                    res.getString("cpfDependente"), res.getString("rgDependente"),
                     res.getString("sexoDependente").charAt(0), tipoDependente);
 
             return dependente;
