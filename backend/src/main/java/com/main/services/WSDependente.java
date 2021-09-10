@@ -1,5 +1,6 @@
 package com.main.services;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.main.bo.pessoa.Dependente;
@@ -70,9 +71,16 @@ public class WSDependente {
     public ResponseEntity<ArrayList<Dependente>> consultarTiposDependente(@RequestParam String cpf) {
 
         UsDependente depeController = new UsDependente();
-        depeController.Consultar(cpf);
-
-        return new ArrayList<String>();
+        ArrayList<Dependente> array;
+        try {
+            array = depeController.ConsultarTudo(cpf);
+            return ResponseEntity.status(HttpStatus.OK).body(array);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
 
     public Dependente renderDependente(DependenteView view) {
