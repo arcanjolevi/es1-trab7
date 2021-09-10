@@ -5,17 +5,17 @@ import java.sql.SQLException;
 import com.main.bo.bensedireitos.BensEDireitos;
 import com.main.model.database.DbConnection;
 import com.main.model.database.DbContribuinte;
-import com.main.model.database.DbBensEDireitos;
+import com.main.model.database.DbDireitosBens;
 
 public class UsBensEDireitos {
   private DbConnection connection;
-  private DbBensEDireitos conBensEDireitos;
+  private DbDireitosBens conBensEDireitos;
   private DbContribuinte conContribuinte;
 
   public UsBensEDireitos() {
     try {
       this.connection = new DbConnection("root", "123");
-      this.conBensEDireitos = new DbBensEDireitos(this.connection);
+      this.conBensEDireitos = new DbDireitosBens(this.connection);
     } catch (SQLException e) {
       e.printStackTrace();
     }
