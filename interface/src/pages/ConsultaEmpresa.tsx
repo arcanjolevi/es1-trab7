@@ -1,9 +1,27 @@
 import { useHistory } from "react-router-dom";
 import "../styles/menu.scss";
 import "../styles/form.scss";
+import { useEffect, useState } from "react";
+import { api } from "../services/api";
 
 export function ConsultarEmpresa() {
   const his = useHistory();
+
+  const [cnpj, setCnpj] = useState("");
+  
+  function handleConsult(){
+    if(cnpj.length > 0){
+      api.get("/empresa", {
+        params: {
+          cnpj: cnpj
+        }
+      }).then(r => {
+        console.log(r.data);
+      })
+    }
+
+  }
+
   return (
     <div className="app-page">
       <div onClick={() => his.goBack()} className="go-back-btn">
@@ -14,10 +32,10 @@ export function ConsultarEmpresa() {
       <form className="app-form">
         <div className="form-field">
           <p className="label">CNPJ da empresa</p>
-          <input placeholder="123.123.123.00" type="text" />
+          <input onChange={e => setCnpj(e.target.value)} placeholder="123.123.123.00" type="text" />
         </div>
 
-        <div className="form-btn">
+        <div onClick={handleConsult} className="form-btn">
           <h3>Consultar</h3>
         </div>
 
