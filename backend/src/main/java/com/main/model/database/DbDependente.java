@@ -132,7 +132,8 @@ public class DbDependente {
     }
 
     public ArrayList<Dependente> getAll(String cpf) throws Exception {
-        String sql = "SELECT * FROM Dependentes WHERE cpfContribuinte='" + cpf + "';";
+        Integer conId = this.contribuinte.getId(cpf);
+        String sql = "SELECT * FROM Dependentes WHERE Contribuinte_idContribuinte='" + conId + "';";
 
         ResultSet res = this.connection.createStatement().executeQuery(sql);
         ArrayList<Dependente> dependentes = new ArrayList<Dependente>();
