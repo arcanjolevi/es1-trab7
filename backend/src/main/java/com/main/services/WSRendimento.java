@@ -28,14 +28,23 @@ public class WSRendimento {
             Integer id = rendimentoController.Cadastrar(rendimento, value.cnpj, value.cpf);
             return ResponseEntity.status(HttpStatus.OK).body(id);
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("@post /rendimento - Dados invalidos - Erro 400 - BAD REQUEST");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
 
-    public ResponseEntity<ArrayList<Rendimento>> listarRendimentosContribuinte(@RequestParam String cpf){
+    public ResponseEntity<ArrayList<Rendimento>> listarRendimentosContribuinte(@RequestParam String cpf) {
         UsRendimento rendimentoController = new UsRendimento();
-        ArrayList<Rendimento> array = rendimentoController.co
+        try {
+            ArrayList<Rendimento> array = rendimentoController.Consultar(cpf);
+            return ResponseEntity.status(HttpStatus.OK).body(array);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
 
     @GetMapping
