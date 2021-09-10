@@ -23,6 +23,7 @@ public class DbTipoDireitoBens {
         } catch (SQLIntegrityConstraintViolationException e1) {
             throw new Exception("Ja inserido");
         } catch (Exception e) {
+            e.printStackTrace();
             try {
                 this.connection.rollback();
                 System.out.println("Inserção de TipoDireitoBem revertida no banco.");
