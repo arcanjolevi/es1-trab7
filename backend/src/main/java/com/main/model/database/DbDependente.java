@@ -132,11 +132,11 @@ public class DbDependente {
     }
 
     public ArrayList<Dependente> getAll(String cpf) throws Exception {
-        String sql = "SELECT * FROM Dependentes WHERE cpfDependente='" + cpf + "';";
+        String sql = "SELECT * FROM Dependentes WHERE cpfContribuinte='" + cpf + "';";
 
         ResultSet res = this.connection.createStatement().executeQuery(sql);
         ArrayList<Dependente> dependentes = new ArrayList<Dependente>();
-        if (res.next()) {
+        while (res.next()) {
             Endereco end = this.dbEndereco.get(Integer.parseInt(res.getString("Endereco_idEndereco")));
 
             EnderecoEspecifico enderecoResidencial = new EnderecoEspecifico(
