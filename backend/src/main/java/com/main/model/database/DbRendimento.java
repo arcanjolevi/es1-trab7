@@ -2,6 +2,7 @@ package com.main.model.database;
 
 import java.sql.ResultSet;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.ArrayList;
 
 import com.main.bo.pessoa.Empresa;
 import com.main.bo.pessoa.Rendimento;
@@ -25,7 +26,7 @@ public class DbRendimento {
                     rendimento.getInss().toString(), rendimento.getIrrf().toString(),
                     rendimento.getDecimoTerceiro().toString(), rendimento.getEmpresa().getCnpj(), cpf };
 
-            Integer res = this.connection.insert("Bairros", names, values).getInt(1);
+            Integer res = this.connection.insert("Rendimentos", names, values).getInt(1);
             this.connection.commit();
             return res;
         } catch (SQLIntegrityConstraintViolationException e1) {
@@ -51,7 +52,21 @@ public class DbRendimento {
                     Double.parseDouble(res.getString("valor13Salario")), empresa);
             return novo;
         } else {
-            throw new Exception("Bairro não encontrado.");
+            throw new Exception("Contribuinte não encontrado.");
         }
+    }
+
+    public ArrayList<Rendimento> get(String cpf) throws Exception {
+        String sql = "SELECT * FROM Rendimentos WHERE Contribuinte_cpfContribuinte='" + cpf + "';";
+        ResultSet res = this.connection.createStatement().executeQuery(sql);
+        ArrayList<Rendimento> rendimentos = new ArrayList<Rendimento>();
+        while (res.next()) {
+            Empresa empresa = this.empresa.get(res.getString("Empresas_cnpjEmpresa"));
+            Rendimento novo = new Rendimento(Double.parseDouble(res.getString("valorRecebido")),
+                    Double.parseDouble(res.getString("INSS")), Double.parseDouble(res.getString("IRRFPago")),
+                    Double.parseDouble(res.getString("valor13Salario")), empresa);
+            rendimentos.add(novo);
+        }
+        return rendimentos;
     }
 }

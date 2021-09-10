@@ -18,6 +18,7 @@ public class DbContribuinte {
     private DbFoneContribuinte foneContri;
     private DbEmailContribuinte emailContri;
     private DbFone fone;
+    private DbRendimento rendimento;
 
     public DbContribuinte(DbConnection connection) {
         this.connection = connection;
@@ -25,6 +26,7 @@ public class DbContribuinte {
         this.foneContri = new DbFoneContribuinte(connection);
         this.emailContri = new DbEmailContribuinte(connection);
         this.fone = new DbFone(connection);
+        this.rendimento = new DbRendimento(connection);
     }
 
     public Integer insert(Contribuinte contribuinte) throws Exception {
@@ -101,11 +103,14 @@ public class DbContribuinte {
 
             ArrayList<Telefone> telefones = this.foneContri.get(Integer.parseInt(res.getString("idContribuinte")));
             ArrayList<Email> emails = this.emailContri.get(Integer.parseInt(res.getString("idContribuinte")));
+
+            ArrayList<Rendimento> rendimentos = this.rendimento.get(res.getString("cpfContribuinte"));
+
             Contribuinte contri = new Contribuinte(res.getString("nomeContribuinte"), telefones, emails,
                     enderecoResidencial, res.getString("sobrenomeContribuinte"),
                     res.getString("nomeSocialContribuinte"), res.getString("cpfContribuinte"),
                     res.getString("rgContribuinte"), res.getString("sexoContribuinte").charAt(0),
-                    new ArrayList<BensEDireitos>(), new ArrayList<Rendimento>());
+                    new ArrayList<BensEDireitos>(), rendimentos);
 
             return contri;
         }
