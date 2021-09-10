@@ -2,6 +2,10 @@ package com.main.services;
 
 import java.util.ArrayList;
 
+import com.main.bo.bensedireitos.BensEDireitos;
+import com.main.bo.bensedireitos.TipoBensEDireitos;
+import com.main.view.BemDireitoView;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,5 +27,11 @@ public class WSBensEDireitos {
             @RequestParam Double valorTotal, @RequestParam String cpfContribuinte) {
 
         return "Cadastro bem e direito";
+    }
+
+    public BensEDireitos renderBemDireito(BemDireitoView view) {
+        BensEDireitos value = new BensEDireitos(view.valorTotal,
+                new TipoBensEDireitos(view.nomeBemDireito, view.tipoBemDireito));
+        return value;
     }
 }
