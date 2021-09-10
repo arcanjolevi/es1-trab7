@@ -38,8 +38,10 @@ public class WSBensEDireitos {
 
     @RequestMapping("/listar")
     @GetMapping
-    public ArrayList<String> consultarTodosBensEDireitos() {
+    public ArrayList<String> consultarTodosBensEDireitos(@RequestParam String cpf) {
         UsBensEDireitos controllerBenDireitos = new UsBensEDireitos();
+
+        controllerBenDireitos.c
         // controllerBenDireitos
         return new ArrayList<String>();
     }

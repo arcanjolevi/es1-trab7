@@ -50,7 +50,8 @@ public class DbDireitosBens {
         String sql = "SELECT * FROM DireitosBens WHERE idDireitoBem='" + idDB + "';";
         ResultSet res = this.connection.createStatement().executeQuery(sql);
         if (res.next()) {
-            TipoBensEDireitos t = new TipoBensEDireitos(this.dTD.get(res.getString("TipoDireitoBem_idDireitoBem")));
+            TipoBensEDireitos t = new TipoBensEDireitos(
+                    this.dTD.get(Integer.parseInt(res.getString("TipoDireitoBem_idTipoDireitoBem"))));
             BensEDireitos bed = new BensEDireitos(Double.parseDouble(res.getString("valorTotalDireitoBem")), t);
             return bed;
         }
