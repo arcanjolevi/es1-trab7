@@ -307,7 +307,7 @@ CREATE TABLE IF NOT EXISTS `IRRF`.`Rendimentos` (
   `Contribuinte_cpfContribuinte` VARCHAR(16) NOT NULL,
   PRIMARY KEY (`idRendimento`),
   INDEX `fk_Rendimentos_Empresas1_idx` (`Empresas_cnpjEmpresa` ASC) VISIBLE,
-  UNIQUE INDEX `Contribuinte_idContribuinte_UNIQUE` (`Contribuinte_cpfContribuinte` ASC) VISIBLE,
+  UNIQUE INDEX `idRendimento_UNIQUE` (`idRendimento` ASC) VISIBLE,
   CONSTRAINT `fk_Rendimentos_Empresas1`
     FOREIGN KEY (`Empresas_cnpjEmpresa`)
     REFERENCES `IRRF`.`Empresas` (`cnpjEmpresa`)
