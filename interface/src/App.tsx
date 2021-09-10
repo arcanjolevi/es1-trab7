@@ -13,10 +13,14 @@ import { CadastroContribuinte } from "./pages/CadastrarContribuinte";
 import { ConsultarContribuinte } from "./pages/ConsultarContribuinte";
 import { CadastroEmpresa } from "./pages/CadastroEmpresa";
 import { ConsultarEmpresa } from "./pages/ConsultaEmpresa";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <div className="App">
+      <div>
+        <Toaster />
+      </div>
       <BrowserRouter>
         <Route path="/" exact component={MainMenu} />
         <Route path="/MenuContribuinte" exact component={MenuComtribuinte} />
