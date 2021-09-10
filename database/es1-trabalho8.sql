@@ -327,7 +327,7 @@ DROP TABLE IF EXISTS `IRRF`.`TipoDireitoBens` ;
 
 CREATE TABLE IF NOT EXISTS `IRRF`.`TipoDireitoBens` (
   `idTipoDireitoBem` INT NOT NULL,
-  `nomeDireitoBem` VARCHAR(255) NULL,
+  `nomeDireitoBem` VARCHAR(255) NULL UNIQUE,
   `descricaoDireitoBem` VARCHAR(255) NULL,
   PRIMARY KEY (`idTipoDireitoBem`));
 
