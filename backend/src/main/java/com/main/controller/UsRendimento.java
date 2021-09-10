@@ -1,8 +1,8 @@
 package com.main.controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
-import com.main.bo.pessoa.Contribuinte;
 import com.main.bo.pessoa.Empresa;
 import com.main.bo.pessoa.Rendimento;
 import com.main.model.database.DbConnection;
@@ -45,6 +45,16 @@ public class UsRendimento {
   public Rendimento Consultar(Integer id) throws SQLException, Exception {
     try {
       return this.conRendimento.get(id);
+    } catch (SQLException sqlErr) {
+      throw sqlErr;
+    } catch (Exception Err) {
+      throw Err;
+    }
+  }
+
+  public ArrayList<Rendimento> Consultar(String cpf) throws SQLException, Exception {
+    try {
+      return this.conRendimento.get(cpf);
     } catch (SQLException sqlErr) {
       throw sqlErr;
     } catch (Exception Err) {
