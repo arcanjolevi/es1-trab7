@@ -34,6 +34,7 @@ public class WSRendimento {
         }
     }
 
+    @GetMapping
     public ResponseEntity<ArrayList<Rendimento>> listarRendimentosContribuinte(@RequestParam String cpf) {
         UsRendimento rendimentoController = new UsRendimento();
         try {
@@ -47,6 +48,7 @@ public class WSRendimento {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
 
+    @RequestMapping("/id")
     @GetMapping
     public ResponseEntity<Rendimento> consultarRendimento(@RequestParam String idRendimento) {
         UsRendimento rendimentoController = new UsRendimento();

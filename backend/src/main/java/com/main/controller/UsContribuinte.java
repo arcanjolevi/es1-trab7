@@ -1,8 +1,10 @@
 package com.main.controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.main.bo.pessoa.Contribuinte;
+import com.main.bo.pessoa.Rendimento;
 import com.main.model.database.DbConnection;
 import com.main.model.database.DbContribuinte;
 
@@ -54,7 +56,14 @@ public class UsContribuinte {
 
   public Contribuinte Consultar(String cpf) throws SQLException, Exception {
     try {
-      return conContribuinte.get(cpf);
+      Contribuinte contribuinte = conContribuinte.get(cpf);
+      ArrayList<Rendimento> newArray = new ArrayList<Rendimento>();
+      for (Rendimento r : contribuinte.getRendimentos()) {
+        r.getEmpresa().setEnderecoResidencial(null);
+        newArray.add(r);
+      }
+      contribuinte.setRendimentos(newArray);
+      return contribuinte;
     } catch (SQLException sqlErr) {
       throw sqlErr;
     } catch (Exception Err) {
