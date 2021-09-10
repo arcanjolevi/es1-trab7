@@ -131,4 +131,31 @@ public class DbDependente {
         throw new Exception("Uf não encontrada.");
     }
 
+    public ArrayList<Dependente> getAll(String cpf) throws Exception {
+        String sql = "SELECT * FROM Dependentes WHERE cpfDependente='" + cpf + "';";
+
+        ResultSet res = this.connection.createStatement().executeQuery(sql);
+        ArrayList<Dependente> dependentes = new ArrayList<Dependente>();
+        if (res.next()) {
+            Endereco end = this.dbEndereco.get(Integer.parseInt(res.getString("Endereco_idEndereco")));
+
+            EnderecoEspecifico enderecoResidencial = new EnderecoEspecifico(
+                    Integer.parseInt(res.getString("numeroEnderecoDependente")), res.getString("complementoDependente"),
+                    end);
+
+            ArrayList<Telefone> telefones = this.foneDependente.get(Integer.parseInt(res.getString("idDependentes")));
+            ArrayList<Email> emails = this.emailDependente.get(Integer.parseInt(res.getString("idDependentes")));
+
+            TipoDependente tipoDependente = this.tipoDependente
+                    .get(Integer.parseInt(res.getString("TipoDependente_idTipoDependente")));
+
+            Dependente dependente = new Dependente(res.getString("nomeDependente"), telefones, emails,
+                    enderecoResidencial, res.getString("sobrenomeDependente"), res.getString("nomeSocialDependente"),
+                    res.getString("cpfDependente"), res.getString("rgDependente"),
+                    res.getString("sexoDependente").charAt(0), tipoDependente);
+            dependentes.add(dependente);
+        }
+        return dependentes;
+    }
+
 }
