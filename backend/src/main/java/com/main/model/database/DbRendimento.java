@@ -15,7 +15,7 @@ public class DbRendimento {
         this.empresa = new DbEmpresa(connection);
     }
 
-    public Integer insert(Rendimento rendimento, String cnpj, String cpf) throws Exception {
+    public Integer insert(Rendimento rendimento, String cpf) throws Exception {
         try {
             this.connection.startTransition();
 

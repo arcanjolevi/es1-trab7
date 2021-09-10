@@ -1,11 +1,14 @@
 package com.main.controller;
 
+import java.sql.SQLException;
+
 import com.main.bo.pessoa.Contribuinte;
 import com.main.bo.pessoa.Empresa;
 import com.main.bo.pessoa.Rendimento;
 import com.main.model.database.DbConnection;
 import com.main.model.database.DbContribuinte;
 import com.main.model.database.DbEmpresa;
+import com.main.model.database.DbRendimento;
 
 public class UsRendimento {
   private DbConnection connection;
@@ -13,7 +16,7 @@ public class UsRendimento {
   private DbContribuinte conContribuinte;
   private DbEmpresa conEmpresa;
 
-  public UsEmpresa() {
+  public UsRendimento() {
     try {
       this.connection = new DbConnection("root", "123");
       this.conRendimento = new DbRendimento(this.connection);
@@ -34,7 +37,7 @@ public class UsRendimento {
 
     Empresa empresa = this.conEmpresa.get(cnpj);
     rendimento.setEmpresa(empresa);
-    Contribuinte contribuinte = this.conContribuinte.get(cpf);
+    this.conContribuinte.get(cpf);
 
     return this.conRendimento.insert(rendimento, cpf);
   }
