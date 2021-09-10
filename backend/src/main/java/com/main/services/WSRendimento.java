@@ -1,6 +1,7 @@
 package com.main.services;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.main.bo.pessoa.Rendimento;
 import com.main.controller.UsRendimento;
@@ -30,6 +31,11 @@ public class WSRendimento {
             System.out.println("@post /rendimento - Dados invalidos - Erro 400 - BAD REQUEST");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
+    }
+
+    public ResponseEntity<ArrayList<Rendimento>> listarRendimentosContribuinte(@RequestParam String cpf){
+        UsRendimento rendimentoController = new UsRendimento();
+        ArrayList<Rendimento> array = rendimentoController.co
     }
 
     @GetMapping

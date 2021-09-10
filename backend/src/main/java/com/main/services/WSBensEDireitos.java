@@ -38,12 +38,19 @@ public class WSBensEDireitos {
 
     @RequestMapping("/listar")
     @GetMapping
-    public ArrayList<String> consultarTodosBensEDireitos(@RequestParam String cpf) {
+    public ResponseEntity<ArrayList<BensEDireitos>> consultarTodosBensEDireitos(@RequestParam String cpf) {
         UsBensEDireitos controllerBenDireitos = new UsBensEDireitos();
 
-        controllerBenDireitos.c
-        // controllerBenDireitos
-        return new ArrayList<String>();
+        try {
+            ArrayList<BensEDireitos> array = controllerBenDireitos.Consultar(cpf);
+            return ResponseEntity.status(HttpStatus.OK).body(array);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ArrayList<BensEDireitos>());
     }
 
     @PostMapping

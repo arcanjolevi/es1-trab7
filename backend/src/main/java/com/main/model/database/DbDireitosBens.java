@@ -63,7 +63,8 @@ public class DbDireitosBens {
         ResultSet res = this.connection.createStatement().executeQuery(sql);
         ArrayList<BensEDireitos> beds = new ArrayList<BensEDireitos>();
         while (res.next()) {
-            TipoBensEDireitos t = new TipoBensEDireitos(this.dTD.get(res.getString("TipoDireitoBem_idDireitoBem")));
+            TipoBensEDireitos t = new TipoBensEDireitos(
+                    this.dTD.get(Integer.parseInt(res.getString("TipoDireitoBem_idTipoDireitoBem"))));
             BensEDireitos bed = new BensEDireitos(Double.parseDouble(res.getString("valorTotalDireitoBem")), t);
             beds.add(bed);
         }
