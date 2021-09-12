@@ -81,7 +81,7 @@ public class WSContribuinte {
         TipoLogradouro tipoLogradouro = new TipoLogradouro(view.nomeLogradouro, view.tipoLogradouro);
         Logradouro logradouro = new Logradouro(view.nomeLogradouro, tipoLogradouro);
 
-        Uf uf = new Uf(view.nome, view.siglaUf);
+        Uf uf = new Uf(view.nomeUf, view.siglaUf);
 
         Cidade cidade = new Cidade(view.nomeCidade, uf);
         Bairro bairro = new Bairro(view.nomeBairro);

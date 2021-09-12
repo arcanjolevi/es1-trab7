@@ -22,6 +22,7 @@ export function ConsultarRendimento() {
   const [cpf, setCpf] = useState("");
   const [rendimentos, setRendimentos] = useState<Rendimento[]>([]);
 
+  //Função executada ao clicar no botao "Consultar"
   function hadleConsult() {
     if (cpf.length > 0) {
       api

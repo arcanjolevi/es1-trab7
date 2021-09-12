@@ -24,6 +24,7 @@ public class WSRendimento {
     @PostMapping
     public ResponseEntity<Integer> criarRendimento(@RequestBody RendimentoView value) {
         try {
+            System.out.println(value);
             Rendimento rendimento = this.renderRendimento(value);
             UsRendimento rendimentoController = new UsRendimento();
             Integer id = rendimentoController.Cadastrar(rendimento, value.cnpj, value.cpf);
