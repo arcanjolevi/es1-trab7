@@ -112,6 +112,7 @@ export function CadastroEmpresa() {
       .post("/empresa", dadosEmpresa)
       .then((r) => {
         toast.success("Empresa cadastrada!");
+        his.goBack();
       })
       .catch((e) => {
         toast.error("Erro no cadastro, verifique seus dados");

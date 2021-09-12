@@ -97,151 +97,155 @@ export function ConsultarContribuinte() {
           <h3>Consultar</h3>
         </div>
 
-        <div className="form-field">
+        {contribuinte && (
           <div className="form-field">
-            <p className="label">nome</p>
-            <input
-              disabled
-              placeholder={contribuinte && contribuinte.nome}
-              type="text"
-            />
-          </div>
-          <div className="form-field">
-            <p className="label">sobrenome</p>
-            <input
-              disabled
-              placeholder={contribuinte && contribuinte.sobrenome}
-              type="text"
-            />
-          </div>
-          <div className="form-field">
-            <p className="label">nome social</p>
-            <input
-              disabled
-              placeholder={contribuinte && contribuinte.nomeSocial}
-              type="text"
-            />
-          </div>
-          <div className="form-field">
-            <p className="label">Logradouro</p>
-            <input
-              disabled
-              placeholder={
-                contribuinte &&
-                contribuinte.enderecoResidencial.endereco.logradouro.nome
-              }
-              type="text"
-            />
-          </div>
-          <div className="form-field">
-            <p className="label">Nro endereço</p>
-            <input
-              disabled
-              placeholder={
-                contribuinte && contribuinte.enderecoResidencial.nroCasa
-              }
-              type="text"
-            />
-          </div>
-          <div className="form-field">
-            <p className="label">Bairro</p>
-            <input
-              disabled
-              placeholder={
-                contribuinte &&
-                contribuinte.enderecoResidencial.endereco.bairro.nome
-              }
-              type="text"
-            />
-          </div>
-          <div className="form-field">
-            <p className="label">Cidade</p>
-            <input
-              disabled
-              placeholder={
-                contribuinte &&
-                contribuinte.enderecoResidencial.endereco.cidade.nome
-              }
-              type="text"
-            />
-          </div>
-          <div className="form-field">
-            <p className="label">Estado</p>
-            <input
-              disabled
-              placeholder={
-                contribuinte &&
-                contribuinte.enderecoResidencial.endereco.cidade.uf.nome
-              }
-              type="text"
-            />
-          </div>
-          <div className="form-field">
-            <p className="label">Complemento</p>
-            <input
-              disabled
-              placeholder={
-                contribuinte && contribuinte.enderecoResidencial.complemento
-              }
-              type="text"
-            />
-          </div>
-          {contribuinte &&
-            contribuinte.emails.map((i) => {
-              return (
-                <div key={i.email} className="form-field">
-                  <p className="label">email</p>
-                  <input disabled placeholder={i.email} type="text" />
-                </div>
-              );
-            })}
+            <div className="form-field">
+              <p className="label">nome</p>
+              <input
+                disabled
+                placeholder={contribuinte && contribuinte.nome}
+                type="text"
+              />
+            </div>
+            <div className="form-field">
+              <p className="label">sobrenome</p>
+              <input
+                disabled
+                placeholder={contribuinte && contribuinte.sobrenome}
+                type="text"
+              />
+            </div>
+            <div className="form-field">
+              <p className="label">nome social</p>
+              <input
+                disabled
+                placeholder={contribuinte && contribuinte.nomeSocial}
+                type="text"
+              />
+            </div>
+            <div className="form-field">
+              <p className="label">Logradouro</p>
+              <input
+                disabled
+                placeholder={
+                  contribuinte &&
+                  contribuinte.enderecoResidencial.endereco.logradouro.nome
+                }
+                type="text"
+              />
+            </div>
+            <div className="form-field">
+              <p className="label">Nro endereço</p>
+              <input
+                disabled
+                placeholder={
+                  contribuinte && contribuinte.enderecoResidencial.nroCasa
+                }
+                type="text"
+              />
+            </div>
+            <div className="form-field">
+              <p className="label">Bairro</p>
+              <input
+                disabled
+                placeholder={
+                  contribuinte &&
+                  contribuinte.enderecoResidencial.endereco.bairro.nome
+                }
+                type="text"
+              />
+            </div>
+            <div className="form-field">
+              <p className="label">Cidade</p>
+              <input
+                disabled
+                placeholder={
+                  contribuinte &&
+                  contribuinte.enderecoResidencial.endereco.cidade.nome
+                }
+                type="text"
+              />
+            </div>
+            <div className="form-field">
+              <p className="label">Estado</p>
+              <input
+                disabled
+                placeholder={
+                  contribuinte &&
+                  contribuinte.enderecoResidencial.endereco.cidade.uf.nome
+                }
+                type="text"
+              />
+            </div>
+            <div className="form-field">
+              <p className="label">Complemento</p>
+              <input
+                disabled
+                placeholder={
+                  contribuinte && contribuinte.enderecoResidencial.complemento
+                }
+                type="text"
+              />
+            </div>
+            {contribuinte &&
+              contribuinte.emails.map((i) => {
+                return (
+                  <div key={i.email} className="form-field">
+                    <p className="label">email</p>
+                    <input disabled placeholder={i.email} type="text" />
+                  </div>
+                );
+              })}
 
-          {contribuinte &&
-            contribuinte.telefones.map((i) => {
-              <div key={i.ddi + i.ddd + i.numero} className="telefone-area">
-                <div className="form-field">
-                  <p className="label">DDI</p>
-                  <input disabled placeholder={i.ddi} type="text" />
-                </div>
-                <div className="form-field">
-                  <p className="label">DDD</p>
-                  <input disabled placeholder={i.ddd} type="text" />
-                </div>
+            {contribuinte &&
+              contribuinte.telefones.map((i) => {
+                return (
+                  <div key={i.ddi + i.ddd + i.numero} className="telefone-area">
+                    <div className="form-field">
+                      <p className="label">DDI</p>
+                      <input disabled placeholder={i.ddi} type="text" />
+                    </div>
+                    <div className="form-field">
+                      <p className="label">DDD</p>
+                      <input disabled placeholder={i.ddd} type="text" />
+                    </div>
 
-                <div className="form-field">
-                  <p className="label">Fone</p>
-                  <input disabled placeholder={i.numero} type="text" />
-                </div>
-              </div>;
-            })}
+                    <div className="form-field">
+                      <p className="label">Fone</p>
+                      <input disabled placeholder={i.numero} type="text" />
+                    </div>
+                  </div>
+                );
+              })}
 
-          <div className="form-field">
-            <p className="label">CPF</p>
-            <input
-              disabled
-              placeholder={contribuinte && contribuinte.cpf}
-              type="text"
-            />
+            <div className="form-field">
+              <p className="label">CPF</p>
+              <input
+                disabled
+                placeholder={contribuinte && contribuinte.cpf}
+                type="text"
+              />
+            </div>
+
+            <div className="form-field">
+              <p className="label">Sexo</p>
+              <input
+                disabled
+                placeholder={contribuinte && contribuinte.sexo}
+                type="text"
+              />
+            </div>
+
+            <div className="form-field">
+              <p className="label">RG</p>
+              <input
+                disabled
+                placeholder={contribuinte && contribuinte.rg}
+                type="text"
+              />
+            </div>
           </div>
-
-          <div className="form-field">
-            <p className="label">Sexo</p>
-            <input
-              disabled
-              placeholder={contribuinte && contribuinte.sexo}
-              type="text"
-            />
-          </div>
-
-          <div className="form-field">
-            <p className="label">RG</p>
-            <input
-              disabled
-              placeholder={contribuinte && contribuinte.rg}
-              type="text"
-            />
-          </div>
-        </div>
+        )}
       </form>
     </div>
   );
