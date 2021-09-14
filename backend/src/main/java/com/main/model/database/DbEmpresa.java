@@ -103,6 +103,6 @@ public class DbEmpresa {
 
             return empresa;
         }
-        throw new Exception("Uf não encontrada.");
+        throw new Exception("Empresa não encontrada.");
     }
 }
